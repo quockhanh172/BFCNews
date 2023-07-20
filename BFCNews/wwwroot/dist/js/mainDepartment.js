@@ -11,11 +11,10 @@ $(document).ready(function () {
     });
 });
 
-    $(document).ready(function () {
-        $("#addDepartment").click(() => {
-            $('#modalAdd').modal("show");
-            $('#modalAdd').on("shown.bs.modal",() => {
-                $("#Department").focus();
-            });
-        })
-    });
+
+$(document).ready(function () {
+        $('#modalAdd').on("shown.bs.modal", () => {
+            $("#Department").focus();
+        });
+});
+
