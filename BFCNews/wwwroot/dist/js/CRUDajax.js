@@ -7,8 +7,13 @@
                 type: "POST",
                 data: { "name": name },
                 success: function (response) {
-                    if (response === "success") {
-                        $("#alertarea").append('<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert"><strong>Đã Thêm Deparment Thành Công</strong><button type = "button" id="btnclosealeart" class= "close"><span aria-hidden="true">&times;</span></button></div>');
+                    console.log(response)
+                    if (response.messager =="success") {
+                        $("#alertarea").append('<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert"><strong>Đã tên Phòng ban Thành Công</strong><button type = "button" id="btnclosealeart" class= "close"><span aria-hidden="true">&times;</span></button></div>');
+                        autoHide();
+                    }
+                    if (response == "available") {
+                        $("#alertarea").append('<div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert"><strong>Đã tên Phòng ban đã tồn tại</strong><button type = "button" id="btnclosealeart" class= "close"><span aria-hidden="true">&times;</span></button></div>');
                         autoHide();
                     }
                 }
@@ -22,7 +27,7 @@
 autoHide = () => {
     setTimeout(function () {
         $('.alert').alert('close');
-    }, 2000);
+    }, 1000);
 }
 
 $(document).ready(function () {  

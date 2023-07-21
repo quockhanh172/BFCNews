@@ -34,7 +34,7 @@ namespace BFCNews.Controllers
                 {
                     _context.Departments.Add(department);
                     _context.SaveChanges();
-                    return Task.FromResult<IActionResult>(Json("success"));
+                    return Task.FromResult<IActionResult>(Json(new { department = department, messager = "success" }));
                 }
                 else
                 {
