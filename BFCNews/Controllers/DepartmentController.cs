@@ -34,7 +34,7 @@ namespace BFCNews.Controllers
                 {
                     _context.Departments.Add(department);
                     _context.SaveChanges();
-                    return Task.FromResult<IActionResult>(Json("success"));
+                    return Task.FromResult<IActionResult>(Json(new { department = department, messager = "success" }));
                 }
                 else
                 {
@@ -44,6 +44,21 @@ namespace BFCNews.Controllers
             else
             {
                 return Task.FromResult<IActionResult>(Json("something went wrong"));
+            }
+        }
+
+        public Task<IActionResult> Delete(int id)
+        {
+            if(id != 0)
+            {
+                var department = _context.Departments.Find(id);
+                _context.Remove(department);
+                _context.SaveChanges();
+                return Task.FromResult<IActionResult>(Json(new { messager = "success" }));
+            }
+            else
+            {
+                return Task.FromResult<IActionResult>(Json(new { messager = "some thing went wrong" }));
             }
         }
 
