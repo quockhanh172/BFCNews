@@ -17,11 +17,20 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../dist/css/alt/Alert.css">
 
 </head>
 <body class="hold-transition sidebar-mini">
+      
     <!-- Site wrapper -->
     <div class="wrapper">
+        <div class="alert" id="alert1">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg" id="msgalert"></span>
+            <button type="button" class="close" id="btn-close-alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @Html.Partial("_NavbarPartial")
         <!-- Main Sidebar Container -->
         @Html.Partial("_AsidePartial")
@@ -81,8 +90,6 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    
-
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
@@ -103,13 +110,12 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
-    $(function () {
-    $("#tbDepartment").DataTable({
-    "responsive": true, "lengthChange": false, "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
+        $(function () {
+            $("#tbDepartment").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#tbDepartment_wrapper .col-md-6:eq(0)');
+        });
     </script>
-    
 </body>
 </html>

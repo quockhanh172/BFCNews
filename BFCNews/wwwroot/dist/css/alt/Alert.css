@@ -1,0 +1,21 @@
+﻿body {
+}
+.alert {
+    background: #ffdb9b;
+    color:white;
+    padding: 20px 40px;
+    min-width: 420px;
+    position: fixed;
+    right: 0px;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #000000;
+    z-index: 9999;
+    animation: slide-in 0.5s forwards;
+    display: none;
+}
+@keyframes slide-in {
+    to {
+        right: 0; /* Di chuyển từ vị trí ngoài cùng bên phải vào vị trí hiện tại */
+    }
+}

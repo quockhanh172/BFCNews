@@ -16,7 +16,7 @@ namespace BFCNews.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var departments = _context.Departments.OrderBy(x=>x.Name).ToList();
+            var departments = _context.Departments.OrderBy(x=>x.Id).ToList();
             ViewBag.Departments = departments;
             return View();
         }
@@ -44,6 +44,25 @@ namespace BFCNews.Controllers
             else
             {
                 return Task.FromResult<IActionResult>(Json("something went wrong"));
+            }
+        }
+
+        [HttpPost]
+        public Task<IActionResult> Edit(int id,string departmentname, bool status)
+        {
+            var a = id;
+            var b = departmentname;
+            var c= status;
+            if (id != 0)
+            {
+                var department = _context.Departments.Find(id);
+                _context.Remove(department);
+                _context.SaveChanges();
+                return Task.FromResult<IActionResult>(Json(new { messager = "success" }));
+            }
+            else
+            {
+                return Task.FromResult<IActionResult>(Json(new { messager = "some thing went wrong" }));
             }
         }
 
