@@ -13,7 +13,7 @@
                         <h1 class="card-title font-weight-bold">Data Table Phòng Ban</h1>
                         <!-- Main content -->
                         <!-- Button to Open the Modal -->
-                        <button type="button" class="btn btn-success float-right" id="addDepartment" data-toggle="modal" data-target="#modalAdd">
+                        <button type="button" class="btn btn-success float-right" id="addDepartment" data-toggle="modal" data-target="#modal-Add-Department">
                             Thêm
                         </button>
                         <!-- Modal -->
@@ -30,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{
+                                @{if(departments!=null){
                                     foreach(var deparment in departments)
                                     {
                                      <tr>
@@ -48,6 +48,7 @@
                                         </tr>
                                     };
                                   }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -63,7 +64,7 @@
 </section>
 <!-- /.content -->
 <!--Modal Add-->
-<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="modal-Add-Department" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

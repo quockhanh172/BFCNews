@@ -50,15 +50,21 @@ namespace BFCNews.Controllers
         [HttpPost]
         public Task<IActionResult> Edit(int id,string departmentname, bool status)
         {
-            var a = id;
-            var b = departmentname;
-            var c= status;
             if (id != 0)
             {
                 var department = _context.Departments.Find(id);
-                _context.Remove(department);
-                _context.SaveChanges();
-                return Task.FromResult<IActionResult>(Json(new { messager = "success" }));
+                if(department.Name==departmentname && department.Status == status) {
+                    return Task.FromResult<IActionResult>(Json(new { messager = "do nothing" }));
+                }
+                else
+                {
+                    department.Status = status;
+                    department.Name = departmentname;
+                    _context.Departments.Update(department);
+                    _context.SaveChanges();
+                    return Task.FromResult<IActionResult>(Json(new { messager = "success",department=department }));
+                }
+
             }
             else
             {

@@ -95,7 +95,8 @@
     <!-- AdminLTE for demo purposes -->
     @*<script src="../../dist/js/demo.js"></script>*@
     <script src="../../dist/js/mainDepartment.js"></script>
-    <script src="../../dist/js/CRUDajax.js"></script>
+    <script src="../../dist/js/ajax/CRUDajaxDepartment.js"></script>
+    <script src="../../dist/js/ajax/CRUDajaxPosition.js"></script>
     <!-- DataTables  & Plugins -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -115,6 +116,10 @@
                 "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#tbDepartment_wrapper .col-md-6:eq(0)');
+            $("#tbPosition").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#tbPosition_wrapper .col-md-6:eq(0)');
         });
     </script>
 </body>
