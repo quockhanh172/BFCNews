@@ -47,5 +47,20 @@ namespace BFCNews.Controllers
             }
         }
 
+        public Task<IActionResult> Delete(int id)
+        {
+            if(id != 0)
+            {
+                var department = _context.Departments.Find(id);
+                _context.Remove(department);
+                _context.SaveChanges();
+                return Task.FromResult<IActionResult>(Json(new { messager = "success" }));
+            }
+            else
+            {
+                return Task.FromResult<IActionResult>(Json(new { messager = "some thing went wrong" }));
+            }
+        }
+
     }
 }
