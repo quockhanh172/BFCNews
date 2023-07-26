@@ -9,8 +9,9 @@ $(document).ready(function () {
             if (a.attr('href').indexOf(activePage) !== -1) {
                 a.addClass('active');
                 var i = 0;
-                for (i = activePage.length; i > 0; i--) {
-                    if (activePage.charAt[i] == "/") {
+                for (i = activePage.toString().length; i > 0; i--) {
+                    console.log(activePage.toString().charAt(i));
+                    if (activePage.charAt(i) === "/") {
                         break;
                     }
                 }

@@ -1,11 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     var departments = ViewBag.Departments;
+    var roles = ViewBag.Roles;
 }
 
 <section class="content">
@@ -80,7 +77,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="form-Add-Account" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="userName">Username</label>
                         <input type="text" id="userName" name="userName" class="form-control" required />
@@ -90,22 +87,29 @@
                         <input type="email" id="email" name="email" class="form-control" required />
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" required />
+                        <label for="Role">Role</label>
+                        <select id="Role" name="Role" class="custom-select">
+                            @{
+                                if (roles != null)
+                                {
+                                   foreach(var item in roles)
+                                    {
+                                       <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+                        <label for="avatar">Profile Picture</label>
+                        <input type="file" id="avatar" name="avatar" class="form-control-file" />
                     </div>
-                    <div class="form-group">
-                        <label for="profilePicture">Profile Picture</label>
-                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*" class="form-control-file" />
-                    </div>
+                    <div><img id="avatarDisplay" style="height: 100px; width: 100px"></div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="btnRegister">Register</button>
+                <button type="button" class="btn btn-success" id="btnAdd">Register</button>
             </div>
         </div>
     </div>
