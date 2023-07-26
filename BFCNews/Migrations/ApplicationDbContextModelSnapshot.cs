@@ -30,15 +30,15 @@ namespace BFCNews.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DayOfBirths")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -73,9 +73,6 @@ namespace BFCNews.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PositionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,8 +85,6 @@ namespace BFCNews.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -97,8 +92,6 @@ namespace BFCNews.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PositionId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -122,7 +115,7 @@ namespace BFCNews.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("BinhdienNews.Models.Position", b =>
+            modelBuilder.Entity("BinhdienNews.Models.DepartmentUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,15 +123,25 @@ namespace BFCNews.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Name")
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Positions");
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DepartmentUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -221,10 +224,12 @@ namespace BFCNews.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -261,10 +266,12 @@ namespace BFCNews.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -274,19 +281,19 @@ namespace BFCNews.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BinhdienNews.Models.ApplicationUser", b =>
+            modelBuilder.Entity("BinhdienNews.Models.DepartmentUser", b =>
                 {
                     b.HasOne("BinhdienNews.Models.Department", "Department")
-                        .WithMany("Users")
+                        .WithMany("DepartmentUsers")
                         .HasForeignKey("DepartmentId");
 
-                    b.HasOne("BinhdienNews.Models.Position", "Position")
-                        .WithMany("Users")
-                        .HasForeignKey("PositionId");
+                    b.HasOne("BinhdienNews.Models.ApplicationUser", "User")
+                        .WithMany("DepartmentUsers")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Department");
 
-                    b.Navigation("Position");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -340,14 +347,14 @@ namespace BFCNews.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BinhdienNews.Models.Department", b =>
+            modelBuilder.Entity("BinhdienNews.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("DepartmentUsers");
                 });
 
-            modelBuilder.Entity("BinhdienNews.Models.Position", b =>
+            modelBuilder.Entity("BinhdienNews.Models.Department", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("DepartmentUsers");
                 });
 #pragma warning restore 612, 618
         }

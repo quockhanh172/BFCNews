@@ -1,6 +1,5 @@
 $(document).ready(function () {
     const activePage = window.location.pathname;
-    console.log(activePage);
     const navLinks = $(".nav-link");
     navLinks.each((element,value) => {
         var a = $(value);
@@ -9,6 +8,13 @@ $(document).ready(function () {
         } else {
             if (a.attr('href').indexOf(activePage) !== -1) {
                 a.addClass('active');
+                var i = 0;
+                for (i = activePage.length; i > 0; i--) {
+                    if (activePage.charAt[i] == "/") {
+                        break;
+                    }
+                }
+                $("#title-web").text(activePage.slice(i + 1)).css("font-weight","bold");
             }
             else {
                 a.removeClass('active');

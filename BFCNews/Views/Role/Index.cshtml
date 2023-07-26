@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var roles = ViewBag.Roles;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Data Table Role</h1>
+                        <!-- Main content -->
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-Add-Role">
+                            Thêm
+                        </button>
+                        <!-- Modal -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="tbRole" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Role</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (roles != null)
+                                    {
+                                        foreach (var role in roles)
+                                        {
+                                            <tr>
+                                                <td>@role.Id</td>
+                                                <td>@role.Name</td>
+                                                <td> "Không thể xóa"</td>
+                                                <td>
+                                                    <button class="btn btn-warning">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        };
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!--Modal Add-->
+<div class="modal fade" id="modal-Add-Role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm phòng ban</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Role">Role</label>
+                        <input class="form-control" id="Role" placeholder="Role">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="btnAdd">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal Add-->
+<!--Modal Edit-->
+<div class="modal fade" id="modal-Edit-Role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-Edit-Role">
+                    <div class="form-group">
+                        <label for="role-edit-input">Edit Department</label>
+                        <input class="form-control" id="role-edit-input" placeholder="Role" name="name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="btn-Edit-Role">Edit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal Edit-->

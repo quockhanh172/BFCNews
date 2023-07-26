@@ -11,6 +11,6 @@ namespace BFCNews.Data
         {
         }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Position> Positions { get; set; }
+        public DbSet<DepartmentUser> DepartmentUsers { get; set; }
     }
 }
