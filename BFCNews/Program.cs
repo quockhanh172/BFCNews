@@ -1,3 +1,4 @@
+using BFCNews.Controllers;
 using BFCNews.Data;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped<IFileService,FileService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddMvc();
