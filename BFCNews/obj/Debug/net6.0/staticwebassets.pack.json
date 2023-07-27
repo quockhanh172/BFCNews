@@ -1,8 +1,24 @@
 {
   "Files": [
     {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\css\\site.css",
-      "PackagePath": "staticwebassets\\css\\site.css"
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\62a7d0fb-1e66-48f4-8ea7-1f60d75e46ae.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\62a7d0fb-1e66-48f4-8ea7-1f60d75e46ae.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\8ebfed45-cc56-4a79-8d40-9e7a7d3850d6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\8ebfed45-cc56-4a79-8d40-9e7a7d3850d6.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b3337feb-9043-4f13-8a6a-0931230a38b0.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b3337feb-9043-4f13-8a6a-0931230a38b0.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b4205a54-ff64-4b00-b47e-e2caf7a72c18.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b4205a54-ff64-4b00-b47e-e2caf7a72c18.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b4ce5508-e9df-4695-b047-cfe94330966b.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b4ce5508-e9df-4695-b047-cfe94330966b.jpg"
     },
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\dist\\css\\adminlte.css",
@@ -281,6 +297,10 @@
       "PackagePath": "staticwebassets\\dist\\js\\ajax\\CRUDajaxDepartment.js"
     },
     {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\dist\\js\\ajax\\CRUDajaxRegister.js",
+      "PackagePath": "staticwebassets\\dist\\js\\ajax\\CRUDajaxRegister.js"
+    },
+    {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\dist\\js\\ajax\\CRUDajaxRole.js",
       "PackagePath": "staticwebassets\\dist\\js\\ajax\\CRUDajaxRole.js"
     },
@@ -307,102 +327,6 @@
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\LICENSE",
-      "PackagePath": "staticwebassets\\lib\\bootstrap"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
-      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
-      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery\\LICENSE.txt",
-      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery\\dist\\jquery.js",
-      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
-      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
-    },
-    {
-      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
-      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\plugins\\chart.js\\Chart.bundle.js",

@@ -1,4 +1,10 @@
-﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
+﻿@{
+    @using BinhdienNews.Models;
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> userManager
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -8,15 +14,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var userId = userManager.GetUserId(User);
+            var user = await userManager.FindByIdAsync(userId);
+            if (user != null && !string.IsNullOrEmpty(user.Avatar))
+            {
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                    <img src="../../Uploads/@user.Avatar" class="img-circle elevation-2" alt="User Image" style="height:35px;width:35px">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">@user.FullName</a>
+                </div>
             </div>
-            <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+            }
+        }
+        else
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Alexander Pierce</a>
+                </div>
             </div>
-        </div>
-
+        }         
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">

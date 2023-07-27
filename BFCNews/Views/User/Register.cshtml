@@ -1,7 +1,11 @@
-﻿@{
+﻿@using BinhdienNews.Models;
+@using Microsoft.AspNetCore.Identity;
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var departments = ViewBag.Departments;
+    @inject UserManager<ApplicationUser> userManager
+    @inject RoleManager<IdentityRole> role;
+    var allUsers =  userManager.Users;
     var roles = ViewBag.Roles;
 }
 
@@ -24,22 +28,28 @@
                         <table id="tbDepartment" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Phòng Ban</th>
-                                    <th>Trạng Thái</th>
+                                    <th>Avatar</th>
+                                    <th>UserName</th>
+                                    <th>Họ Tên</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
-                                    if (departments != null)
+                                    if (allUsers != null)
                                     {
-                                        foreach (var deparment in departments)
+                                        foreach (var user in allUsers)
                                         {
                                             <tr>
-                                                <td>@deparment.Id</td>
-                                                <td>@deparment.Name</td>
-                                                <td>@deparment.Status</td>
+                                                <td style="text-align:center">
+                                                    <img src="../../Uploads/@user.Avatar" class="img thumnail" alt="User Image" style="height:35px;width:35px">
+                                                </td>
+                                                <td>@user.UserName</td>
+                                                <td>@user.FullName</td>
+                                                <td>@user.Email</td>
+                                                <td>@userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault()</td>
                                                 <td>
                                                     <button class="btn btn-warning">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>

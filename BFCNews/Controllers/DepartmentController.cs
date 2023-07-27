@@ -1,10 +1,14 @@
 ﻿using BFCNews.Data;
 using BinhdienNews.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BFCNews.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class DepartmentController : Controller
     {
         public ApplicationDbContext _context;
