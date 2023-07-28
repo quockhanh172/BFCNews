@@ -1,4 +1,5 @@
 ﻿using BFCNews.Data;
+using BFCNews.Service;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,9 @@ using System.Data;
 namespace BFCNews.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [AccessDeniedAuthorize(Roles = "Admin")]
     public class DepartmentController : Controller
+
     {
         public ApplicationDbContext _context;
         public DepartmentController (ApplicationDbContext context)
@@ -21,7 +23,10 @@ namespace BFCNews.Controllers
         public IActionResult Index()
         {
             var departments = _context.Departments.OrderBy(x=>x.Id).ToList();
-            ViewBag.Departments = departments;
+            if (departments !=null)
+            {
+                ViewBag.Departments = departments;
+            }
             return View();
         }
 

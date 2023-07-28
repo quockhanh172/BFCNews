@@ -76,5 +76,12 @@ namespace BFCNews.Controllers
             }
             return await Task.FromResult<IActionResult>(Json(new {user=user, messager = "success" }));;
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return  RedirectToAction("Index", "Admin");
+        }
+
     }
 }
