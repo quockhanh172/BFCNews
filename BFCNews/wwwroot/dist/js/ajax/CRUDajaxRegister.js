@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(()=> {
     $('#avatar').on('change', function (e) {
         var file = e.target.files[0];
         var reader = new FileReader();
@@ -13,7 +13,7 @@
 });
 
 //Add account
-$(document).ready(function () {
+$(document).ready( ()=> {
     $("#modal-Add-Account").on("click", "#btnAdd", () => {
         var name = $("#userName").val().toString();
         var email = $("#email").val().toString();
@@ -34,7 +34,7 @@ $(document).ready(function () {
                         $(".alert").css('display', 'block');
                         reload();
                     }
-                    if (response == "available") {
+                    if (response.messager == "available") {
                         $("#msgalert").text("Tên phòng ban đã tồn tại");
                         $(".alert").css("background", "#FF0000");
                         $(".alert").css('display', 'block');
@@ -46,3 +46,10 @@ $(document).ready(function () {
         }
     });
 }) 
+
+$(document).ready(()=> {
+   $('#tbl-Account').on('click', '.btn-danger', function() {
+        var b = $(this).closest('tr');
+        console.log(b);
+    });
+})

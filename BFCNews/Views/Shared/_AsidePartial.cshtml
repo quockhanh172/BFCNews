@@ -37,7 +37,7 @@
                     <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="User/Login" class="d-block">Login</a>
                 </div>
             </div>
         }         
@@ -55,33 +55,36 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="sidebarAdmin">
-                <!-- Add icons to the links using the .nav-icon class
+                            @if (User.IsInRole("Admin"))
+            {
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="sidebarAdmin">
+                    <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="@Url.Action("Index", "Department" )" class="nav-link" id="department" data-id="Department">
-                        <i class="nav-icon fas fa fa-building"></i>
-                        <p>
-                            Deparment
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="@Url.Action("Index", "Role" )" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Role
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="@Url.Action("Register","User")" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Create Account
-                        </p>
-                    </a>
-                </li>
+
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Department" )" class="nav-link" id="department" data-id="Department">
+                            <i class="nav-icon fas fa fa-building"></i>
+                            <p>
+                                Deparment
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Role" )" class="nav-link">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Role
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Register","User")" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Create Account
+                            </p>
+                        </a>
+                    </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
@@ -616,6 +619,7 @@
                     </a>
                 </li>
             </ul>
+            }
         </nav>
         <!-- /.sidebar-menu -->
     </div>

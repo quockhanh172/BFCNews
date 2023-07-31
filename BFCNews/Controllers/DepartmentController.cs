@@ -1,5 +1,4 @@
 ﻿using BFCNews.Data;
-using BFCNews.Service;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,7 @@ using System.Data;
 namespace BFCNews.Controllers
 {
 
-    [AccessDeniedAuthorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class DepartmentController : Controller
 
     {

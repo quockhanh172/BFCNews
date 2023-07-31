@@ -54,27 +54,43 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add (string userName, string Email,string role, IFormFile avatar, string fullName)
+        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName)
         {
-            ApplicationUser user = new ApplicationUser();
-            var currentRole = await _roleManager.FindByIdAsync(role);
-            user.FullName = fullName;
-            user.UserName = userName;
-            user.Email = Email;
-            if(avatar!= null)
+            if (userName != null)
             {
-                var result = _fileService.SaveImage(avatar);
-                if (result.Item1 == 1)
+                if (_userManager.FindByNameAsync(userName) != null)
                 {
-                    user.Avatar = result.Item2;
+                    return await Task.FromResult<IActionResult>(Json(new { messager = "available" }));
                 }
+                else {
+                    ApplicationUser user = new ApplicationUser();
+                    var currentRole = await _roleManager.FindByIdAsync(role);
+                    user.FullName = fullName;
+                    user.UserName = userName;
+                    user.Email = Email;
+                    if (avatar != null)
+                    {
+                        var result = _fileService.SaveImage(avatar);
+                        if (result.Item1 == 1)
+                        {
+                            user.Avatar = result.Item2;
+                        }
+                    }
+                    string password = "Binhdien@123";
+                    var CurrentAccount = await _userManager.CreateAsync(user, password);
+                    if (CurrentAccount.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, currentRole.Name);
+                    }
+                    return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
+                }
+
             }
-            string password = "Binhdien@123";
-            var CurrentAccount= await _userManager.CreateAsync(user,password);
-            if(CurrentAccount.Succeeded) {
-                await _userManager.AddToRoleAsync(user, currentRole.Name);
+            else
+            {
+                return Json(new { messager = "Error" });
             }
-            return await Task.FromResult<IActionResult>(Json(new {user=user, messager = "success" }));;
+            
         }
 
         public async Task<IActionResult> Logout()
@@ -83,5 +99,36 @@ namespace BFCNews.Controllers
             return  RedirectToAction("Index", "Admin");
         }
 
+        private bool IsPasswordValid(string password)
+        {
+            // Define the password requirements
+            int requiredLength = 8;
+            int requiredUniqueChars = 1;
+            bool requireDigit = true;
+            bool requireLowercase = true;
+            bool requireNonAlphanumeric = true;
+            bool requireUppercase = true;
+
+            // Check the length
+            if (password.Length < requiredLength)
+                return false;
+
+            // Check for the required unique characters
+            if (password.Distinct().Count() < requiredUniqueChars)
+                return false;
+
+            // Check for the required character types
+            if (requireDigit && !password.Any(char.IsDigit))
+                return false;
+            if (requireLowercase && !password.Any(char.IsLower))
+                return false;
+            if (requireNonAlphanumeric && !password.Any(c => !char.IsLetterOrDigit(c)))
+                return false;
+            if (requireUppercase && !password.Any(char.IsUpper))
+                return false;
+
+            // All requirements passed, password is valid
+            return true;
+        }
     }
 }

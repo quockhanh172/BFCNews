@@ -10,7 +10,6 @@ $(document).ready(function () {
                 a.addClass('active');
                 var i = 0;
                 for (i = activePage.toString().length; i > 0; i--) {
-                    console.log(activePage.toString().charAt(i));
                     if (activePage.charAt(i) === "/") {
                         break;
                     }
