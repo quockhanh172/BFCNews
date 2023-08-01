@@ -58,11 +58,10 @@ namespace BFCNews.Controllers
         {
             if (userName != null)
             {
-                if (_userManager.FindByNameAsync(userName) != null)
+                var userPost = await _userManager.FindByNameAsync(userName);
+                if (userPost == null)
                 {
-                    return await Task.FromResult<IActionResult>(Json(new { messager = "available" }));
-                }
-                else {
+                    var a = _userManager.FindByNameAsync(userName);
                     ApplicationUser user = new ApplicationUser();
                     var currentRole = await _roleManager.FindByIdAsync(role);
                     user.FullName = fullName;
@@ -83,6 +82,9 @@ namespace BFCNews.Controllers
                         await _userManager.AddToRoleAsync(user, currentRole.Name);
                     }
                     return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
+                }
+                else {
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "available" }));   
                 }
 
             }

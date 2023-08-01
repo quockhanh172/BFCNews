@@ -19,8 +19,8 @@ $(document).ready(function () {
                         $("#msgalert").text("Tên phòng ban đã tồn tại");
                         $(".alert").css("background", "#FF0000");
                         $(".alert").css('display', 'block');
+                        autoHide();
                     }
-                    $('#modal-Add-Department').modal('hide')
                 }
 
             })
@@ -30,7 +30,7 @@ $(document).ready(function () {
 //autohide alert
 autoHide = () => {
     setTimeout(function () {
-        $('#alert1').alert('close');
+        $('.alert').css("display", "hide");
     }, 800);
 }
 
@@ -82,13 +82,11 @@ $(document).ready(function () {
                     $("#msgalert").text("Bạn đã không thay đổi gì.");
                     $(".alert").css("background", "#ffc107");
                     $(".alert").css('display', 'block');
-                    $("#modal-Edit-Department").modal('hide');
                 }
                 if (response.messager == "some thing went wrong") {
                     $("#msgalert").text("Đương mạng không ổn định hãy quay lại sau.");
                     $(".alert").css("background", "#FF0000");
                     $(".alert").css('display', 'block');
-                    $("#modal-Edit-Department").modal('hide');
                 }
             }
         })
@@ -133,5 +131,4 @@ $("#deleteModal").on('click', '#modal-btn-department-yes', () => {
         }
     })
 })
-
 

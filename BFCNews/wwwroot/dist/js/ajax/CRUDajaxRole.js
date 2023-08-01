@@ -25,7 +25,6 @@ $(document).ready(function () {
                         $(".alert").css("background", "#dc3545");
                         $(".alert").css('display', 'block');
                     }
-                    $('#modal-Add-Department').modal('hide')
                 }
 
             })
@@ -67,13 +66,11 @@ $(document).ready(function () {
                     $("#msgalert").text("Bạn đã không thay đổi gì.");
                     $(".alert").css("background", "#ffc107");
                     $(".alert").css('display', 'block');
-                    $("#modal-Edit-Role").modal('hide');
                 }
                 if (response.messager == "failed") {
                     $("#msgalert").text("Đường mạng không ổn định hãy quay lại sau.");
                     $(".alert").css("background", "#FF0000");
                     $(".alert").css('display', 'block');
-                    $("#modal-Edit-Role").modal('hide');
                 }
             }
         })

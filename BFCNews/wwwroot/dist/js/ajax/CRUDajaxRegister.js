@@ -14,12 +14,13 @@
 
 //Add account
 $(document).ready( ()=> {
-    $("#modal-Add-Account").on("click", "#btnAdd", () => {
+    $("#modal-Add-Account").on("click", "#btnAdd", function()  {
+        console.log("aaaaaa");
         var name = $("#userName").val().toString();
         var email = $("#email").val().toString();
         var role = $("#Role").val().toString();
-        var avatar = $("#Role").val().toString();
-        if (name != null && email != null && role != null && avatar != null) {
+        var avatar = $("#avatar").val().toString();
+        if (name.length != 0 && email.length != 0 && role.length != 0 && avatar.length != 0) {
             var formdata = new FormData($("#form-Add-Account")[0]);
             $.ajax({
                 url: '/User/Add',
@@ -32,24 +33,31 @@ $(document).ready( ()=> {
                         $("#msgalert").text("Đã thêm thành công");
                         $(".alert").css("background", "#28a745");
                         $(".alert").css('display', 'block');
-                        reload();
+                        $('#modal-Add-Account').modal('hide')
                     }
                     if (response.messager == "available") {
-                        $("#msgalert").text("Tên phòng ban đã tồn tại");
+                        $("#msgalert").text("Username đã tồn tại");
                         $(".alert").css("background", "#FF0000");
                         $(".alert").css('display', 'block');
+                        autoHide();
                     }
-                    $('#modal-Add-Department').modal('hide')
                 }
 
             })
+        }
+        else {
+            $("#msgalert").text("vui lòng điền đầy đủ thông tin");
+            $(".alert").css("background", "#FF0000");
+            $(".alert").css('display', 'block');
+            autoHide();
         }
     });
 }) 
 
 $(document).ready(()=> {
    $('#tbl-Account').on('click', '.btn-danger', function() {
-        var b = $(this).closest('tr');
-        console.log(b);
+       var rowAccountLock = $(this).closest('tr');
+       var userName = rowAccountLock.find('td:eq(1)').text();
+       console.log(userName);
     });
 })
