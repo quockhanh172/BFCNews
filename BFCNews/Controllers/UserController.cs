@@ -1,7 +1,9 @@
 ﻿using BFCNews.Data;
 using BinhdienNews.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BFCNews.Controllers
 {
@@ -95,12 +97,42 @@ namespace BFCNews.Controllers
             
         }
 
+        //Lock Account
+
+        [HttpPost]
+        [Authorize(Roles = "Super Admin")]
+        public async Task<IActionResult> LockDownAccount(string username)
+        {
+            var user = _userManager.Users.FirstOrDefault(u => u.UserName==username);
+            if (user != null && user.LockoutEnabled==false)
+            {
+                user.LockoutEnabled = true;
+                await _userManager.UpdateAsync(user);
+                return Json(new { messager = "Success" });
+
+            }
+            if (user != null && user.LockoutEnabled == true)
+            {
+                user.LockoutEnabled = false;
+                await _userManager.UpdateAsync(user);
+                return Json(new { messager = "Success" });
+
+            }
+            else
+            {
+                return Json(new { messager = "Error" });
+            }
+            
+        }
+
+        //logout
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return  RedirectToAction("Index", "Admin");
         }
 
+        //valid password
         private bool IsPasswordValid(string password)
         {
             // Define the password requirements

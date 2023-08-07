@@ -25,7 +25,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="tbl-Account" class="table table-bordered table-hover">
+                        <table id="tbAccount" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Avatar</th>
@@ -54,9 +54,19 @@
                                                     <button class="btn btn-warning">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </button>
-                                                    <button class="btn btn-danger">
-                                                        <i class="fas fa-lock-open" aria-hidden="true"></i>
-                                                    </button>
+                                                    @if (user.LockoutEnabled == true)
+                                                    {
+                                                        <button class="btn btn-primary">
+                                                            <i class="fas fa-lock" aria-hidden="true"></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-danger">
+                                                            <i class="fas fa-lock-open" aria-hidden="true"></i>
+                                                        </button>
+                                                     }
+                                                    
                                                 </td>
                                             </tr>
                                         };

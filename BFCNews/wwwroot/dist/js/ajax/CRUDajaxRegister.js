@@ -34,6 +34,7 @@ $(document).ready( ()=> {
                         $(".alert").css("background", "#28a745");
                         $(".alert").css('display', 'block');
                         $('#modal-Add-Account').modal('hide')
+                        reload();
                     }
                     if (response.messager == "available") {
                         $("#msgalert").text("Username đã tồn tại");
@@ -55,9 +56,57 @@ $(document).ready( ()=> {
 }) 
 
 $(document).ready(()=> {
-   $('#tbl-Account').on('click', '.btn-danger', function() {
+   $('#tbAccount').on('click', '.btn-danger', function() {
        var rowAccountLock = $(this).closest('tr');
        var userName = rowAccountLock.find('td:eq(1)').text();
-       console.log(userName);
+       if (userName != "") {
+           $.ajax({
+               url: '/User/LockDownAccount',
+               type: 'Post',
+               data: { username: userName },
+               success: function (response) {
+                   if (response.messager == "Success") {
+                       reload1s();
+                   }
+                   if (response.messager == "Error") {
+                       $("#msgalert").text("Lỗi");
+                       $(".alert").css("background", "#FF0000");
+                       $(".alert").css('display', 'block');
+                       autoHide();
+                   }
+               }
+           })
+       }
     });
 })
+
+$(document).ready(() => {
+    $('#tbAccount').on('click', '.btn-primary', function () {
+        var rowAccountLock = $(this).closest('tr');
+        var userName = rowAccountLock.find('td:eq(1)').text();
+        if (userName != "") {
+            $.ajax({
+                url: '/User/LockDownAccount',
+                type: 'Post',
+                data: { username: userName },
+                success: function (response) {
+                    if (response.messager == "Success") {
+                        reload1s();
+                    }
+                    if (response.messager == "Error") {
+                        $("#msgalert").text("Lỗi");
+                        $(".alert").css("background", "#FF0000");
+                        $(".alert").css('display', 'block');
+                        autoHide();
+                    }
+                }
+            })
+        }
+    });
+})
+
+reload1s = () => {
+    setTimeout(function () {
+        location.reload();
+    }, 500);
+}

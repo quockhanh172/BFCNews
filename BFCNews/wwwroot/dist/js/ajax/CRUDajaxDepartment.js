@@ -30,7 +30,7 @@ $(document).ready(function () {
 //autohide alert
 autoHide = () => {
     setTimeout(function () {
-        $('.alert').css("display", "hide");
+        $('#alert1').alert("close");
     }, 800);
 }
 

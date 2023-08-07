@@ -1,12 +1,60 @@
 {
   "Files": [
     {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\10bfdc10-a753-40b5-bfae-94f0431cb05e.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\10bfdc10-a753-40b5-bfae-94f0431cb05e.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\19ada929-3ca5-4006-8d13-1c20bbe02c67.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\19ada929-3ca5-4006-8d13-1c20bbe02c67.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\1b1b4b8a-4a0c-4aec-b98c-adcaa90a3328.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\1b1b4b8a-4a0c-4aec-b98c-adcaa90a3328.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\247ebcc3-67d0-4b1e-a200-43634bd357bc.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\247ebcc3-67d0-4b1e-a200-43634bd357bc.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\26a3f392-a5b9-4f9d-b25c-82a37ab7147e.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\26a3f392-a5b9-4f9d-b25c-82a37ab7147e.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\32016339-e534-4ea9-afea-af7c531a23d3.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\32016339-e534-4ea9-afea-af7c531a23d3.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\41618237-1e10-48fb-abb2-70d9b7250026.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\41618237-1e10-48fb-abb2-70d9b7250026.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\5f77e879-3647-4f84-a652-043823c85a23.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\5f77e879-3647-4f84-a652-043823c85a23.jpg"
+    },
+    {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\62a7d0fb-1e66-48f4-8ea7-1f60d75e46ae.jpg",
       "PackagePath": "staticwebassets\\Uploads\\62a7d0fb-1e66-48f4-8ea7-1f60d75e46ae.jpg"
     },
     {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\791b5240-9cb8-4360-92fd-16d830147970.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\791b5240-9cb8-4360-92fd-16d830147970.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\7cacc823-2bab-45ce-80cf-3cdb96ba8d4c.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\7cacc823-2bab-45ce-80cf-3cdb96ba8d4c.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\8322ee07-dfdb-4ce0-bf3e-818bac8bcefd.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\8322ee07-dfdb-4ce0-bf3e-818bac8bcefd.jpg"
+    },
+    {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\8ebfed45-cc56-4a79-8d40-9e7a7d3850d6.jpg",
       "PackagePath": "staticwebassets\\Uploads\\8ebfed45-cc56-4a79-8d40-9e7a7d3850d6.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\9fed0d65-f31f-427e-8dc5-424c2d38a87a.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\9fed0d65-f31f-427e-8dc5-424c2d38a87a.jpg"
     },
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b3337feb-9043-4f13-8a6a-0931230a38b0.jpg",
@@ -19,6 +67,14 @@
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b4ce5508-e9df-4695-b047-cfe94330966b.jpg",
       "PackagePath": "staticwebassets\\Uploads\\b4ce5508-e9df-4695-b047-cfe94330966b.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\b8615f44-33ea-4745-ad8c-27dfd1f56214.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b8615f44-33ea-4745-ad8c-27dfd1f56214.jpg"
+    },
+    {
+      "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\Uploads\\d6c02c13-3c07-4eb9-9e37-bc36eccbdbf6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\d6c02c13-3c07-4eb9-9e37-bc36eccbdbf6.jpg"
     },
     {
       "Id": "F:\\BFCNews\\BFCNews\\wwwroot\\dist\\css\\adminlte.css",
