@@ -2,12 +2,14 @@
 $(document).ready(function () {
     $("#modal-Add-Role").on("click", "#btnAdd", () => {
         var name = $("#Role").val().toString();
-        console.log(name);
         if (name != null) {
+            var formdata = new FormData($("#form-Add-Role")[0]);
             $.ajax({
                 url: '/Role/Add',
                 type: "POST",
-                data: { "name": name },
+                data: formdata,
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     if (response.messager == "success") {
                         $("#msgalert").text("Đã thêm thành công");
@@ -76,3 +78,5 @@ $(document).ready(function () {
         })
     })
 })
+
+//selectpicker

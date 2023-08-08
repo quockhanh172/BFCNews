@@ -20,8 +20,10 @@ $(document).ready( ()=> {
         var email = $("#email").val().toString();
         var role = $("#Role").val().toString();
         var avatar = $("#avatar").val().toString();
-        if (name.length != 0 && email.length != 0 && role.length != 0 && avatar.length != 0) {
+        var position = $("#position").val().toString();
+        if (name.length != 0 && email.length != 0 && role.length != 0 && avatar.length != 0 && position.length !=0) {
             var formdata = new FormData($("#form-Add-Account")[0]);
+            console.log(formdata);
             $.ajax({
                 url: '/User/Add',
                 type: "POST",

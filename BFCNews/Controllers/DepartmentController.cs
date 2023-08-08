@@ -8,7 +8,7 @@ using System.Data;
 namespace BFCNews.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Super Admin")]
     public class DepartmentController : Controller
 
     {

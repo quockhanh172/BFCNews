@@ -73,13 +73,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="form-Add-Role" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="Role">Role</label>
-                        <input class="form-control" id="Role" placeholder="Role">
+                        <input class="form-control" id="Role" name="Role" placeholder="Role">
+                    </div>
+                    <div class="form-group">
+                        <label for="Permission">Permission</label>
+                        <select multiple data-actions-box="true" class="selectpicker w-60 form-control" id="Permission" name="Permission">
+                            <option value="read">Read</option>
+                            <option value="write">Write</option>
+                            <option value="edit">Edit</option>
+                        </select>
                     </div>
                 </form>
-            </div>
+            </div>  
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-success" id="btnAdd">Add</button>
@@ -103,6 +111,14 @@
                     <div class="form-group">
                         <label for="role-edit-input">Edit Department</label>
                         <input class="form-control" id="role-edit-input" placeholder="Role" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Permission">Permission</label>
+                        <select multiple data-actions-box="true" class="selectpicker w-60 form-control" id="Permission" name="Permission">
+                            <option value="read">Read</option>
+                            <option value="write">Write</option>
+                            <option value="edit">Edit</option>
+                        </select>
                     </div>
                 </form>
             </div>

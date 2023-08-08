@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
 using System.Data;
+using System.Security.Claims;
 
 namespace BFCNews.Controllers
 {
@@ -22,20 +23,28 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add (string name)
+        public async Task<IActionResult> Add (string Role, List<string> Permission)
         {
-            if (name == null)
+            if (Role == null || Permission==null)
             {
                 return await Task.FromResult<IActionResult>(Json(new { messager = "failed" }));
             }
             else
             {
-                bool roleExists = await _roleManager.RoleExistsAsync(name);
+                bool roleExists = await _roleManager.RoleExistsAsync(Role);
                 if (roleExists == false)
                 {
-                    var Role = new IdentityRole();
-                    Role.Name = name;
-                    await _roleManager.CreateAsync(Role);
+                    var role = new IdentityRole();
+                    role.Name = Role;
+                   var result =await _roleManager.CreateAsync(role);
+                    foreach(var item in Permission)
+                    {
+                        if (result.Succeeded)
+                        {
+                            await _roleManager.AddClaimAsync(role, new Claim(item, item));
+                    }
+                    }
+                    
                     return await Task.FromResult<IActionResult>(Json(new { role = Role, messager = "success" }));
                 }
                 else

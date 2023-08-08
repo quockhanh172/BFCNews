@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Security.Claims;
 
 namespace BFCNews.Controllers
 {
@@ -27,6 +28,7 @@ namespace BFCNews.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -48,6 +50,7 @@ namespace BFCNews.Controllers
             }
         }
 
+        
         public IActionResult Register()
         {
             var Roles = _roleManager.Roles.OrderBy(a => a.Name).ToList();
@@ -56,16 +59,14 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName)
+        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string position, List<string> Permission)
         {
             if (userName != null)
             {
                 var userPost = await _userManager.FindByNameAsync(userName);
                 if (userPost == null)
                 {
-                    var a = _userManager.FindByNameAsync(userName);
                     ApplicationUser user = new ApplicationUser();
-                    var currentRole = await _roleManager.FindByIdAsync(role);
                     user.FullName = fullName;
                     user.UserName = userName;
                     user.Email = Email;
@@ -81,7 +82,7 @@ namespace BFCNews.Controllers
                     var CurrentAccount = await _userManager.CreateAsync(user, password);
                     if (CurrentAccount.Succeeded)
                     {
-                        await _userManager.AddToRoleAsync(user, currentRole.Name);
+                        await _userManager.AddToRoleAsync(user, role);
                     }
                     return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
                 }
@@ -100,7 +101,6 @@ namespace BFCNews.Controllers
         //Lock Account
 
         [HttpPost]
-        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> LockDownAccount(string username)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.UserName==username);

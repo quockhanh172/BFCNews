@@ -16,8 +16,7 @@
         <!-- Sidebar user (optional) -->
         @if (SignInManager.IsSignedIn(User))
         {
-            var userId = userManager.GetUserId(User);
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user != null && !string.IsNullOrEmpty(user.Avatar))
             {
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
