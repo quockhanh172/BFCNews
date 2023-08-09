@@ -43,6 +43,11 @@ $(document).ready( ()=> {
                         $(".alert").css('display', 'block');
                         autoHide();
                     }
+                    if (response.messager == "failed") {
+                        $("#msgalert").text("Website gặp lỗi xin quay lại sau");
+                        $(".alert").css("background", "#dc3545");
+                        $(".alert").css('display', 'block');
+                    }
                 }
 
             })
@@ -75,6 +80,15 @@ $(document).ready(()=> {
                        $(".alert").css('display', 'block');
                        autoHide();
                    }
+                   if (response.messager == "failed") {
+                       $("#msgalert").text("Website gặp lỗi xin quay lại sau");
+                       $(".alert").css("background", "#dc3545");
+                       $(".alert").css('display', 'block');
+                   }
+               },error: function (xhr, status, error) {
+                   // Handle errors here
+                   var relativePath = 'Error/PermissionDenied';
+                   window.location.pathname = relativePath;
                }
            })
        }

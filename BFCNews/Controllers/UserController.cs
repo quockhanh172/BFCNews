@@ -101,6 +101,7 @@ namespace BFCNews.Controllers
         //Lock Account
 
         [HttpPost]
+        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> LockDownAccount(string username)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.UserName==username);
