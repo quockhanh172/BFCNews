@@ -3,15 +3,18 @@ using BinhdienNews.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.QuickInfo;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Security.Claims;
+using System.Xml.Linq;
 
 namespace BFCNews.Controllers
 {
     
     public class UserController : Controller
     {
-        private ApplicationDbContext _context;
+        public ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
@@ -23,6 +26,7 @@ namespace BFCNews.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
             _fileService = fileService;
+            _context = context;
         }   
         public IActionResult Index()
         {
@@ -59,7 +63,7 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string position, List<string> Permission)
+        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, List<string> userClaim, string Position, List<int> Department)
         {
             if (userName != null)
             {
@@ -80,11 +84,37 @@ namespace BFCNews.Controllers
                     }
                     string password = "Binhdien@123";
                     var CurrentAccount = await _userManager.CreateAsync(user, password);
-                    if (CurrentAccount.Succeeded)
+
+                    if (CurrentAccount.Succeeded && role=="User")
                     {
                         await _userManager.AddToRoleAsync(user, role);
+                        if(userClaim != null)
+                        {
+                            foreach(var item in userClaim)
+                            {
+                                await _userManager.AddClaimAsync(user, new Claim("Permission",item));
+                            }
+                        }
+                       
+                        foreach (var item in Department)
+                        {
+                            DepartmentUser departmentUser = new DepartmentUser();
+                            departmentUser.Position = Position;
+                            departmentUser.User = user;
+                            departmentUser.Status = true;
+                            var currentDepartment =   await _context.Departments.FirstOrDefaultAsync(d => d.Id==item);
+                            departmentUser.Department = currentDepartment;
+                            await _context.DepartmentUsers.AddAsync(departmentUser);
+                             _context.SaveChanges();
+
+                        }
+                        return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
                     }
-                    return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, role);
+                        return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
+                    }       
                 }
                 else {
                         return await Task.FromResult<IActionResult>(Json(new { messager = "available" }));   

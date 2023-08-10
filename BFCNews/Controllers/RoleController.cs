@@ -41,8 +41,8 @@ namespace BFCNews.Controllers
                     {
                         if (result.Succeeded)
                         {
-                            await _roleManager.AddClaimAsync(role, new Claim(item, item));
-                    }
+                            await _roleManager.AddClaimAsync(role, new Claim("permission", item));
+                        }
                     }
                     
                     return await Task.FromResult<IActionResult>(Json(new { role = Role, messager = "success" }));
@@ -56,7 +56,7 @@ namespace BFCNews.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string name, string id)
+        public async Task<IActionResult> Edit(string name, string id, List<string> Permission)
         {
             if (name == null)
             {
@@ -65,10 +65,26 @@ namespace BFCNews.Controllers
             else
             {
                 var roleExists = await _roleManager.FindByIdAsync(id);
-                if (roleExists.Name != name )
+                if (roleExists.Name != name || Permission!=null )
                 {
                     roleExists.Name= name;
-                    await _roleManager.UpdateAsync(roleExists);
+                    var result= await _roleManager.UpdateAsync(roleExists);
+                    if (result.Succeeded && Permission!=null)
+                    {
+                        var existingClaims = await _roleManager.GetClaimsAsync(roleExists);
+                        foreach (var claim in existingClaims)
+                        {
+                            await _roleManager.RemoveClaimAsync(roleExists, claim);
+                        }
+                        foreach (var item in Permission)
+                        {
+                            if (result.Succeeded)
+                            {
+                                await _roleManager.AddClaimAsync(roleExists, new Claim("permission", item));
+                            }
+                        }
+
+                    }
                     return await Task.FromResult<IActionResult>(Json(new { role = roleExists, messager = "success" }));
                 }
                 else

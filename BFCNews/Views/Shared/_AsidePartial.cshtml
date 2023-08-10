@@ -36,7 +36,7 @@
                     <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="User/Login" class="d-block">Login</a>
+                    <a href=@Url.Action("login","User") class="d-block">Login</a>
                 </div>
             </div>
         }         
@@ -54,8 +54,6 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            @if (User.IsInRole("Super Admin") || User.IsInRole("Admin"))
-            {
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="sidebarAdmin">
                     <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
@@ -618,7 +616,6 @@
                     </a>
                 </li>
             </ul>
-            }
         </nav>
         <!-- /.sidebar-menu -->
     </div>

@@ -1,12 +1,14 @@
-﻿@using BinhdienNews.Models;
+﻿@using BFCNews.Data;
+@using BinhdienNews.Models;
 @using Microsoft.AspNetCore.Identity;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     @inject UserManager<ApplicationUser> userManager
-    @inject RoleManager<IdentityRole> role;
+    @inject ApplicationDbContext context;
     var allUsers =  userManager.Users;
     var roles = ViewBag.Roles;
+    var departments = context.Departments;
 }
 
 <section class="content">
@@ -33,6 +35,7 @@
                                     <th>Họ Tên</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Level</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
@@ -50,6 +53,24 @@
                                                 <td>@user.FullName</td>
                                                 <td>@user.Email</td>
                                                 <td>@userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault()</td>
+                                                @if (userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault() == "Admin" || userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault() == "SuperAdmin")
+                                                {
+                                                    <td>LevelMax</td>
+                                                }
+                                                else
+                                                {
+                                                    @foreach (var claim in await userManager.GetClaimsAsync(user))
+                                                    {
+                                                        @if (claim.Value == "")
+                                                        {
+                                                            <td>Level0</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>@claim.Value</td>
+                                                        }
+                                                    }
+                                                }
                                                 <td>
                                                     <button class="btn btn-warning">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
@@ -123,7 +144,39 @@
                                 }
                             }
                         </select>
-                    </div>                    
+                    </div>
+                    <div class="form-group" style="display: none;" id="inputPosition">
+                        <label for="Position">Chức vụ</label>
+                        <select id="Position" name="Position" class="custom-select">
+                               <option value="VipManager">Tổng giám đốc</option>
+                               <option value="SuperManager">Phó Tổng Giám Đốc</option>
+                               <option value="Manager">Trưởng/Phó Phòng</option>
+                               <option value="Employee">Nhân viên</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: none;" id="inputDepartment">
+                        <label for="Department">Phòng Ban</label>
+                        <select id="Department" name="Department" multiple data-actions-box="true" class="selectpicker w-60 form-control">
+                            @{
+                                if (departments != null)
+                                {
+                                    foreach (var item in departments)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group" id="Claim" style="display: none;">
+                        <label for="userClaim">User Level</label>
+                        <select id="userClaim" name="userClaim" class="custom-select">
+                            <option value="Level1">Level1</option>
+                            <option value="Level2">Level2</option>
+                            <option value="Level3">Level3</option>
+                            <option value="Level4">Level4</option>
+                        </select>
+                    </div>   
                     <div class="form-group">
                         <label for="avatar">Profile Picture</label>
                         <input type="file" id="avatar" name="avatar" class="form-control-file" />

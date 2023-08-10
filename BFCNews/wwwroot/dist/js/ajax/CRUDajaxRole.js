@@ -28,6 +28,11 @@ $(document).ready(function () {
                         $(".alert").css('display', 'block');
                     }
                 }
+                , error: function (xhr, status, error) {
+                    // Handle errors here
+                    var relativePath = 'Error/PermissionDenied';
+                    window.location.pathname = relativePath;
+                }
 
             })
         }
@@ -62,6 +67,7 @@ $(document).ready(function () {
                     $(".alert").css("background", "#28a745");
                     $(".alert").css('display', 'block');
                     $("#modal-Edit-Role").modal('hide');
+                    reload();
 
                 }
                 if (response.messager == "donothing") {
