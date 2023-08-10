@@ -95,19 +95,23 @@ namespace BFCNews.Controllers
                                 await _userManager.AddClaimAsync(user, new Claim("Permission",item));
                             }
                         }
-                       
+
                         foreach (var item in Department)
                         {
-                            DepartmentUser departmentUser = new DepartmentUser();
-                            departmentUser.Position = Position;
-                            departmentUser.User = user;
-                            departmentUser.Status = true;
-                            var currentDepartment =   await _context.Departments.FirstOrDefaultAsync(d => d.Id==item);
-                            departmentUser.Department = currentDepartment;
-                            await _context.DepartmentUsers.AddAsync(departmentUser);
-                             _context.SaveChanges();
-
+                            var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == item);
+                            if (currentDepartment != null)
+                            {
+                                DepartmentUser departmentUser = new DepartmentUser
+                                {
+                                    Position = Position,
+                                    Department = currentDepartment,
+                                    User = user,
+                                    Status = true
+                                };
+                                await _context.DepartmentUsers.AddAsync(departmentUser);
+                            }
                         }
+                        await _context.SaveChangesAsync();
                         return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
                     }
                     else

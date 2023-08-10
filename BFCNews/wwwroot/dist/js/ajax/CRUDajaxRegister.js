@@ -42,13 +42,12 @@ $(document).ready(() => {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log("bbbb");
                     if (response.messager == "success") {
                         $("#msgalert").text("Đã thêm thành công");
                         $(".alert").css("background", "#28a745");
                         $(".alert").css('display', 'block');
                         $('#modal-Add-Account').modal('hide')
-                        reload();
+                        reload1s();
                     }
                     if (response.messager == "available") {
                         $("#msgalert").text("Username đã tồn tại");
@@ -61,6 +60,11 @@ $(document).ready(() => {
                         $(".alert").css("background", "#dc3545");
                         $(".alert").css('display', 'block');
                     }
+                },
+                error: function () {
+                    $("#msgalert").text("Website gặp lỗi xin quay lại sau");
+                    $(".alert").css("background", "#dc3545");
+                    $(".alert").css('display', 'block');
                 }
 
             })
