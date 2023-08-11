@@ -96,12 +96,12 @@ namespace BFCNews.Controllers
                             }
                         }
 
-                        foreach (var item in Department)
+                        foreach (var departmentId in Department)
                         {
-                            var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == item);
+                            var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
                             if (currentDepartment != null)
                             {
-                                DepartmentUser departmentUser = new DepartmentUser
+                                var departmentUser = new DepartmentUser
                                 {
                                     Position = Position,
                                     Department = currentDepartment,
@@ -111,8 +111,9 @@ namespace BFCNews.Controllers
                                 await _context.DepartmentUsers.AddAsync(departmentUser);
                             }
                         }
+
                         await _context.SaveChangesAsync();
-                        return await Task.FromResult<IActionResult>(Json(new { user = user, messager = "success" }));
+                        return Json(new { user = user, message = "success" });
                     }
                     else
                     {
@@ -135,7 +136,6 @@ namespace BFCNews.Controllers
         //Lock Account
 
         [HttpPost]
-        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> LockDownAccount(string username)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.UserName==username);
