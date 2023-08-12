@@ -83,9 +83,9 @@ namespace BFCNews.Controllers
                         }
                     }
                     string password = "Binhdien@123";
-                    var CurrentAccount = await _userManager.CreateAsync(user, password);
+                    var result1 = await _userManager.CreateAsync(user, password);
 
-                    if (CurrentAccount.Succeeded && role=="User")
+                    if (result1.Succeeded && role=="User")
                     {
                         await _userManager.AddToRoleAsync(user, role);
                         if(userClaim != null)
@@ -113,7 +113,7 @@ namespace BFCNews.Controllers
                         }
 
                         await _context.SaveChangesAsync();
-                        return await Task.FromResult<IActionResult>(Json(new { messager = "success" }));
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "success"}));
                     }
                     else
                     {
