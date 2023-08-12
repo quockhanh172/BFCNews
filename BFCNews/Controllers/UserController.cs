@@ -113,7 +113,7 @@ namespace BFCNews.Controllers
                         }
 
                         await _context.SaveChangesAsync();
-                        return Json(new { user = user, message = "success" });
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "success" }));
                     }
                     else
                     {
