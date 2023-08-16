@@ -48,6 +48,10 @@ namespace BFCNews.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
+            if (result.IsLockedOut == false)
+            {
+                return RedirectToAction("AccountLocked", "Error");
+            }
             else
             {
                 return RedirectToAction("Login");
