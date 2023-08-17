@@ -14,5 +14,9 @@ namespace BFCNews.Controllers
         {
             return View();
         }
+        public IActionResult AccountLocked()
+        {
+            return View();
+        }
     }
 }

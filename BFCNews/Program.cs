@@ -27,7 +27,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 
     // Lockout settings.
-/*    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);*/
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
@@ -42,6 +42,19 @@ builder.Services.ConfigureApplicationCookie(options =>
     // Set the access denied path to the custom page or URL
     options.AccessDeniedPath = "/Error/AccessDenied"; // Replace with the desired path
     options.LoginPath = "/User/Login";
+});
+
+//build policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("VipManager", policy =>
+         policy.RequireClaim("Permission", "level1"));
+    options.AddPolicy("DeputyCEO", policy =>
+        policy.RequireClaim("Permission", "level2"));
+    options.AddPolicy("DHD", policy =>
+        policy.RequireClaim("Permission", "level3"));
+    options.AddPolicy("Employee", policy =>
+        policy.RequireClaim("Permission", "level4"));
 });
 builder.Services.AddScoped<IFileService,FileService>();
 builder.Services.AddControllersWithViews();

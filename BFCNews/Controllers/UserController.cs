@@ -41,21 +41,28 @@ namespace BFCNews.Controllers
         public async Task<IActionResult> Login(string Username, string Password)
         {
             var user = await _userManager.FindByNameAsync(Username);
-
-            var result = await _signInManager.PasswordSignInAsync(user, Password, true, false);
-
-            if (result.Succeeded)
+            if (user != null)
             {
-                return RedirectToAction("Index", "Admin");
-            }
-            if (result.IsLockedOut == false)
-            {
-                return RedirectToAction("AccountLocked", "Error");
+                var result = await _signInManager.PasswordSignInAsync(user, Password, true, lockoutOnFailure: true);
+
+                if (result.Succeeded && await _userManager.IsLockedOutAsync(user) == false)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                if (await _userManager.IsLockedOutAsync(user))
+                {
+                    return RedirectToAction("AccountLocked", "Error");
+                }
+                else
+                {
+                    return RedirectToAction("Login");
+                }
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("AccountLocked", "Error");
             }
+            
         }
 
         
@@ -143,25 +150,27 @@ namespace BFCNews.Controllers
         public async Task<IActionResult> LockDownAccount(string username)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.UserName==username);
-            if (user != null && user.LockoutEnabled==false)
+            if (user != null)
             {
-                user.LockoutEnabled = true;
-                await _userManager.UpdateAsync(user);
-                return Json(new { messager = "Success" });
+                if (!await _userManager.IsLockedOutAsync(user))
+                {
+                    await _userManager.SetLockoutEnabledAsync(user, true);
+                    await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue); // Khóa người dùng vĩnh viễn
 
-            }
-            if (user != null && user.LockoutEnabled == true)
-            {
-                user.LockoutEnabled = false;
-                await _userManager.UpdateAsync(user);
-                return Json(new { messager = "Success" });
+                    return Json(new { messager = "Success" });
+                }
+                else
+                {
+                    await _userManager.SetLockoutEnabledAsync(user, false);
 
+                    return Json(new { messager = "Success" });
+                }
             }
             else
             {
                 return Json(new { messager = "Error" });
             }
-            
+
         }
 
         //logout
