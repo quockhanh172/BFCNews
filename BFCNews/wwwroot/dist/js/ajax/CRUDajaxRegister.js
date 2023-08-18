@@ -15,14 +15,23 @@
 
 //Add account
 $(document).ready(() => {
+    $("#ClaimAdmin").show();
     $('#modal-Add-Account').on('change', "#Role", function () {
         var selectedValue = $(this).val();
         if (selectedValue === "User") {
             $("#Claim").show();
             $("#inputPosition").show();
             $("#inputDepartment").show();
+            $("#ClaimAdmin").hide();
         }
-        else {
+        if (selectedValue === "Admin") {
+            $("#ClaimAdmin").show();
+            $('#Claim').hide();
+            $("#inputPosition").hide();
+            $("#inputDepartment").hide();
+        }
+        if (selectedValue === "SuperAdmin") {
+            $("#ClaimAdmin").hide();
             $('#Claim').hide();
             $("#inputPosition").hide();
             $("#inputDepartment").hide();
@@ -137,6 +146,27 @@ $(document).ready(() => {
     });
 })
 
+//edit account
+$(document).ready(function () {
+    $("#tbAccount").on('click', '.btn-warning', function () {
+        $("#modal-Edit-Account").modal('show');
+        rowEditAccount = $(this).closest('tr');
+        $("#fullNameEdit").val(rowEditAccount.find("td:eq(2)").text());
+        $("#userNameEdit").val(rowEditAccount.find("td:eq(1)").text());
+        $("#emailNameEdit").val(rowEditAccount.find("td:eq(3)").text());
+        $("#roleEdit").val(rowEditAccount.find("td:eq(4)").text());
+        $('#avatarDisplayEdit').addClass("img-thumbnail");
+        $('#avatarDisplayEdit').attr('src', rowEditAccount.find("td:eq(0) img").prop("src"));
+
+        if (rowEditAccount.find("td:eq(4)").text() == "User") {
+            $("#userClaimEdit").val(rowEditAccount.find("td:eq(5)").text())
+            $("#ClaimEdit").show();
+            $("#inputPositionEdit").show();
+            $("#inputPositionEdit").show();
+            $("#inputDepartmentEdit").hide();
+        }
+    });
+});
 
 reload1s = () => {
     setTimeout(function () {

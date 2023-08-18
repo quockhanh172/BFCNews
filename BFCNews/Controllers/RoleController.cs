@@ -23,9 +23,9 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add (string Role, List<string> Permission)
+        public async Task<IActionResult> Add (string Role)
         {
-            if (Role == null || Permission==null)
+            if (Role == null)
             {
                 return await Task.FromResult<IActionResult>(Json(new { messager = "failed" }));
             }
@@ -37,15 +37,14 @@ namespace BFCNews.Controllers
                     var role = new IdentityRole();
                     role.Name = Role;
                    var result =await _roleManager.CreateAsync(role);
-                    foreach(var item in Permission)
+                    if (result.Succeeded)
                     {
-                        if (result.Succeeded)
-                        {
-                            await _roleManager.AddClaimAsync(role, new Claim("permission", item));
-                        }
+                        return await Task.FromResult<IActionResult>(Json(new { role = Role, messager = "success" }));
                     }
-                    
-                    return await Task.FromResult<IActionResult>(Json(new { role = Role, messager = "success" }));
+                    else
+                    {
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "failed" }));
+                    }
                 }
                 else
                 {
@@ -56,7 +55,7 @@ namespace BFCNews.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string name, string id, List<string> Permission)
+        public async Task<IActionResult> Edit(string name, string id)
         {
             if (name == null)
             {
@@ -65,27 +64,19 @@ namespace BFCNews.Controllers
             else
             {
                 var roleExists = await _roleManager.FindByIdAsync(id);
-                if (roleExists.Name != name || Permission!=null )
+                if (roleExists.Name != name)
                 {
                     roleExists.Name= name;
                     var result= await _roleManager.UpdateAsync(roleExists);
-                    if (result.Succeeded && Permission!=null)
+                    if (result.Succeeded)
                     {
-                        var existingClaims = await _roleManager.GetClaimsAsync(roleExists);
-                        foreach (var claim in existingClaims)
-                        {
-                            await _roleManager.RemoveClaimAsync(roleExists, claim);
-                        }
-                        foreach (var item in Permission)
-                        {
-                            if (result.Succeeded)
-                            {
-                                await _roleManager.AddClaimAsync(roleExists, new Claim("permission", item));
-                            }
-                        }
-
+                        return await Task.FromResult<IActionResult>(Json(new { role = roleExists, messager = "success" }));
                     }
-                    return await Task.FromResult<IActionResult>(Json(new { role = roleExists, messager = "success" }));
+                    else
+                    {
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "failed" }));
+                    }
+                    
                 }
                 else
                 {

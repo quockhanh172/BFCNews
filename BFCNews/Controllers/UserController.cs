@@ -74,7 +74,7 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, List<string> userClaim, string Position, List<int> Department)
+        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string userClaim,string adminClaim, string Position, List<int> Department)
         {
             if (userName != null)
             {
@@ -85,6 +85,8 @@ namespace BFCNews.Controllers
                     user.FullName = fullName;
                     user.UserName = userName;
                     user.Email = Email;
+                    user.EmailConfirmed = true;
+                    user.PhoneNumberConfirmed=true;
                     if (avatar != null)
                     {
                         var result = _fileService.SaveImage(avatar);
@@ -99,32 +101,36 @@ namespace BFCNews.Controllers
                     if (result1.Succeeded && role=="User")
                     {
                         await _userManager.AddToRoleAsync(user, role);
-                        if(userClaim != null)
-                        {
-                            foreach(var item in userClaim)
-                            {
-                                await _userManager.AddClaimAsync(user, new Claim("Permission",item));
-                            }
+                        if(userClaim != null) {                     
+                                await _userManager.AddClaimAsync(user, new Claim("Permission", userClaim));
                         }
-
-                        foreach (var departmentId in Department)
-                        {
-                            var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
-                            if (currentDepartment != null)
+                    if(Department!=null) {
+                            foreach (var departmentId in Department)
                             {
-                                var departmentUser = new DepartmentUser
+                                var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
+                                if (currentDepartment != null)
                                 {
-                                    Position = Position,
-                                    Department = currentDepartment,
-                                    User = user,
-                                    Status = true
-                                };
-                                await _context.DepartmentUsers.AddAsync(departmentUser);
+                                    var departmentUser = new DepartmentUser
+                                    {
+                                        Position = Position,
+                                        Department = currentDepartment,
+                                        User = user,
+                                        Status = true
+                                    };
+                                    await _context.DepartmentUsers.AddAsync(departmentUser);
+                                }
                             }
-                        }
 
-                        await _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync();
+                    }
+                    
                         return await Task.FromResult<IActionResult>(Json(new { messager = "success"}));
+                    }
+                    else if (adminClaim != null && role=="Admin")
+                    {
+                        await _userManager.AddToRoleAsync(user, role);
+                        await _userManager.AddClaimAsync(user, new Claim("PermissionAdmin", adminClaim));
+                        return await Task.FromResult<IActionResult>(Json(new { messager = "success" }));
                     }
                     else
                     {

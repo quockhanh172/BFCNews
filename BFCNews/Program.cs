@@ -48,13 +48,20 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("VipManager", policy =>
-         policy.RequireClaim("Permission", "level1"));
+         policy.RequireClaim("Permission", "Level1"));
     options.AddPolicy("DeputyCEO", policy =>
-        policy.RequireClaim("Permission", "level2"));
+        policy.RequireClaim("Permission", "Level2"));
     options.AddPolicy("DHD", policy =>
-        policy.RequireClaim("Permission", "level3"));
+        policy.RequireClaim("Permission", "Level3"));
     options.AddPolicy("Employee", policy =>
-        policy.RequireClaim("Permission", "level4"));
+        policy.RequireClaim("Permission", "Level4"));
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default SignIn settings.
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
 });
 builder.Services.AddScoped<IFileService,FileService>();
 builder.Services.AddControllersWithViews();
