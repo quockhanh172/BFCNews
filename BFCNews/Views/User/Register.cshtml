@@ -72,7 +72,7 @@
                                                     }
                                                 }
                                                 <td>
-                                                    <button class="btn btn-warning">
+                                                    <button class="btn btn-warning" onclick="location.href='@(Url.Action("UserDetails", "User", new { @Id = user.Id }))'">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </button>
                                                     @if (user.LockoutEnabled == true)
@@ -146,7 +146,7 @@
                         </select>
                     </div>
                     <div class="form-group" id="ClaimAdmin" style="display: none;">
-                        <label for="adminClaim">Chức năng Amin</label>
+                        <label for="adminClaim">Level Admin</label>
                         <select id="adminClaim" name="adminClaim" class="custom-select">
                             <option value="Level1">Level1</option>
                             <option value="Level2">Level2</option>
@@ -199,98 +199,6 @@
     </div>
 </div>
 <!--End Modal Add-->
-<!--Modal Edit-->
-<div class="modal fade" id="modal-Edit-Account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Thêm Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form-Add-Account" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullNameEdit" name="fullName" class="form-control" required disabled/>
-                    </div>
-                    <div class="form-group">
-                        <label for="userName">Username</label>
-                        <input type="text" id="userNameEdit" name="userName" class="form-control" required disabled />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="emailNameEdit" name="email" class="form-control" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="Role">Role</label>
-                        <select id="roleEdit" name="Role" class="custom-select">
-                            @{
-                                if (roles != null)
-                                {
-                                    foreach (var item in roles)
-                                    {
-                                        <option value="@item.Name">@item.Name</option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group" id="ClaimAdmin" style="display: none;">
-                        <label for="adminClaim">Chức năng Amin</label>
-                        <select id="adminClaim" name="adminClaim" class="custom-select">
-                            <option value="Level1">Level1</option>
-                            <option value="Level2">Level2</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="display: none;" id="inputPositionEdit">
-                        <label for="Position">Chức vụ</label>
-                        <select id="Position" name="Position" class="custom-select">
-                            <option value="VipManager">Tổng giám đốc</option>
-                            <option value="SuperManager">Phó Tổng Giám Đốc</option>
-                            <option value="Manager">Trưởng/Phó Phòng</option>
-                            <option value="Employee">Nhân viên</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="display: none;" id="inputDepartmentEdit">
-                        <label for="Department">Phòng Ban</label>
-                        <select id="Department" name="Department" multiple data-actions-box="true" class="selectpicker w-60 form-control">
-                            @{
-                                if (departments != null)
-                                {
-                                    foreach (var item in departments)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group" id="ClaimEdit" style="display: none;">
-                        <label for="userClaimEdit">User Level</label>
-                        <select id="userClaimEdit" name="userClaimEdit" class="custom-select">
-                            <option value="Level1">Level1</option>
-                            <option value="Level2">Level2</option>
-                            <option value="Level3">Level3</option>
-                            <option value="Level4">Level4</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="avatar">Profile Picture</label>
-                        <input type="file" id="avatarEdit" name="avatar" class="form-control-file" />
-                    </div>
-                    <div><img id="avatarDisplayEdit" style="height: 100px; width: 100px"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="btnAdd">Register</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Modal Edit-->
 <!--Modal Delete-->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="deleteModal">
     <div class="modal-dialog modal-sm">

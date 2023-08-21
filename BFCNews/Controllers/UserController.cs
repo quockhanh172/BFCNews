@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.QuickInfo;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 using System.Data;
 using System.Security.Claims;
 using System.Xml.Linq;
@@ -117,12 +118,11 @@ namespace BFCNews.Controllers
                                         User = user,
                                         Status = true
                                     };
-                                    await _context.DepartmentUsers.AddAsync(departmentUser);
+                                    user.DepartmentUsers.Add(departmentUser);         
                                 }
                             }
-
-                            await _context.SaveChangesAsync();
-                    }
+                            await _userManager.UpdateAsync(user);
+                        }
                     
                         return await Task.FromResult<IActionResult>(Json(new { messager = "success"}));
                     }
@@ -186,6 +186,16 @@ namespace BFCNews.Controllers
             return  RedirectToAction("Index", "Admin");
         }
 
+        //UserDetail
+        public async Task<IActionResult> UserDetails(string Id)
+        {
+            var user = await _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du=>du.Department).FirstOrDefaultAsync(u => u.Id == Id);
+            if(user != null)
+            {
+                ViewData["userDetail"] = user;
+            }           
+            return View();
+        }
         //valid password
         private bool IsPasswordValid(string password)
         {

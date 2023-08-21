@@ -1,0 +1,38 @@
+﻿@using BinhdienNews.Models;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var userDetail = ViewData["userDetail"] as ApplicationUser;
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <img src="../../Uploads/@userDetail.Avatar" class="card-img-top img-thumbnail" alt="User Avatar" style="height:300px">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <dl class="dl-horizontal">
+                    <dt>Tên người dùng:</dt>
+                    <dd>@userDetail.UserName</dd>
+                    <dt>Email:</dt>
+                    <dd>@userDetail.Email</dd>
+                    <dt>Họ Tên:</dt>
+                    <dd>@userDetail.FullName</dd>
+                    <dt>Chức vụ:</dt>
+                    <dd>@userDetail.DepartmentUsers.First().Position</dd>
+                    <dt>Phòng ban:</dt>
+                    @foreach (var item in userDetail.DepartmentUsers)
+                    {
+                        <dd>@item.Department.Name</dd>
+                    }
+                    <!-- Các thông tin khác của người dùng -->
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
