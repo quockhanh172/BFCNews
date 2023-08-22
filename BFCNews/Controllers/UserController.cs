@@ -179,6 +179,39 @@ namespace BFCNews.Controllers
 
         }
 
+        //Change Avatar 
+       public async Task<IActionResult> ChangeAvatar(IFormFile newAvatar,string UserId)
+        {
+            if (UserId != null)
+            {
+                var currentUser = _userManager.FindByIdAsync(UserId).Result;
+                if (newAvatar != null)
+                {
+                    var result = _fileService.SaveImage(newAvatar);
+                    if (result.Item1 == 1)
+                    {
+                        var oldImage = currentUser.Avatar;
+                        currentUser.Avatar = result.Item2;
+                        await _userManager.UpdateAsync(currentUser);
+                        var deleteResult = _fileService.DeleteImage(oldImage);
+                        if (deleteResult == true)
+                        {
+                            return Json(new { message = "success" });
+                        }
+                    }
+                }
+                else
+                {
+                    return Json(new { message = "failed" });
+                }
+
+            }
+            else {
+                return Json(new { message = "failed" });
+            }
+            return Redirect("User/ChangeAvatar");
+        }
+
         //logout
         public async Task<IActionResult> Logout()
         {

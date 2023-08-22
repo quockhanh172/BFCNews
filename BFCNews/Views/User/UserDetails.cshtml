@@ -9,29 +9,64 @@
 }
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-5">
-            <div class="card">
-                <img src="../../Uploads/@userDetail.Avatar" class="card-img-top img-thumbnail" alt="User Avatar" style="height:300px">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4" style="text-align: left;">
+                    <img id="img-Edit" src="../../Uploads/@userDetail.Avatar" class="card-img-top img-thumbnail" alt="Ảnh người dùng" style="max-height: 300px; max-width: 100%;">
+                    <div id="imgToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                        <div class="toast-body">
+                            <button class="btn-block" id="Change-Avarta">Thay đổi ảnh đại diện</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-mt-8" >
+                    <dl class="dl-horizontal">
+                        <dt>Tên người dùng:</dt>
+                        <dd><input type="text" value="@userDetail.UserName" disabled/></dd>
+                        <dt>Password:</dt>
+                        <dd><input type="password" value="@userDetail.PasswordHash" disabled /></dd>
+                        <dt>Email:</dt>
+                        <dd><input type="text" value="@userDetail.Email" disabled /></dd>
+                        <dt>Họ Tên:</dt>
+                        <dd><input type="text" value="@userDetail.FullName" disabled /></dd>
+                        @if (userDetail.DepartmentUsers.Count != 0)
+                        {
+                            <dt>Chức vụ:</dt>
+                            <dd><input type="text" value="@userDetail.DepartmentUsers.First().Position" disabled /></dd>
+                            <dt>Phòng ban:</dt>
+                            @foreach (var item in userDetail.DepartmentUsers)
+                            {
+                                <dd>@item.Department.Name</dd>
+                            }
+                        }
+                        <!-- Các thông tin khác của người dùng -->
+                    </dl>
+                </div>   
             </div>
         </div>
-        <div class="col-md-7">
-            <div class="card">
-                <dl class="dl-horizontal">
-                    <dt>Tên người dùng:</dt>
-                    <dd>@userDetail.UserName</dd>
-                    <dt>Email:</dt>
-                    <dd>@userDetail.Email</dd>
-                    <dt>Họ Tên:</dt>
-                    <dd>@userDetail.FullName</dd>
-                    <dt>Chức vụ:</dt>
-                    <dd>@userDetail.DepartmentUsers.First().Position</dd>
-                    <dt>Phòng ban:</dt>
-                    @foreach (var item in userDetail.DepartmentUsers)
-                    {
-                        <dd>@item.Department.Name</dd>
-                    }
-                    <!-- Các thông tin khác của người dùng -->
-                </dl>
+    </div>
+</div>
+<div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="avatarModalLabel">Ảnh đại diện mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form id="FormChangeAvatar" enctype="multipart/form-data">
+                        <input type="file" name="newAvatar" id="newAvatar" accept="image/*">
+                        <input type="text" name="UserId" id="UserId" value="@userDetail.Id" hidden/>
+                        <img id="newAvatarPreview" src="" alt="Ảnh mới" style="max-height: 300px; max-width: 100%;display:none" >
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="Change-Avatar">Lưu thay đổi</button>
             </div>
         </div>
     </div>
