@@ -1,9 +1,12 @@
 ﻿using BFCNews.Data;
+using BFCNews.Models;
+using BFCNews.Service;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.QuickInfo;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Versioning;
 using System.Data;
@@ -12,7 +15,7 @@ using System.Xml.Linq;
 
 namespace BFCNews.Controllers
 {
-    
+
     public class UserController : Controller
     {
         public ApplicationDbContext _context;
@@ -20,7 +23,9 @@ namespace BFCNews.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
         private IFileService _fileService;
-        public UserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole>roleManager ,IFileService fileService)
+        private IEmailSender _emailSender;
+
+        public UserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole>roleManager ,IFileService fileService, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -28,6 +33,7 @@ namespace BFCNews.Controllers
             _roleManager = roleManager;
             _fileService = fileService;
             _context = context;
+            _emailSender = emailSender;
         }   
         public IActionResult Index()
         {
@@ -222,13 +228,102 @@ namespace BFCNews.Controllers
         //UserDetail
         public async Task<IActionResult> UserDetails(string Id)
         {
-            var user = await _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du=>du.Department).FirstOrDefaultAsync(u => u.Id == Id);
-            if(user != null)
+            var roleAdmin = HttpContext.User.IsInRole("Admin");
+            var roleSuperAdmin = HttpContext.User.IsInRole("SuperAdmin");
+            string name = HttpContext.User.Identity.Name;
+            string currentAccess= (await _userManager.FindByIdAsync(Id)).UserName;
+
+            if(roleAdmin || roleSuperAdmin || name == currentAccess)
             {
+                var user = await _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du => du.Department).FirstOrDefaultAsync(u => u.Id == Id);
                 ViewData["userDetail"] = user;
-            }           
+            }
+            else
+            {
+                return RedirectToAction ("AccessDenied","Error");
+            }
             return View();
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callBackUrl = Url.Action("ResetPassword", "User",
+                        new { userId = user.Id, code,model.Email }, protocol: HttpContext.Request.Scheme);
+                    await _emailSender.SendEmailAsync(model.Email, "Xác nhận đặt lại mật khẩu",
+                    $"Vui lòng xác nhận yêu cầu đặt lại mật khẩu bằng cách <a href='{callBackUrl}'>nhấn vào đây</a>.");
+                    return View("ForgotPasswordConfirmation");
+                }
+                ModelState.AddModelError(string.Empty, "Email không tồn tại.");
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult ResetPassword(string code,string Email)
+        {
+            if (code == null)
+            {
+                return RedirectToAction("ForgotPassword");
+            }
+            ViewBag.Email = Email;
+            ViewBag.Code = code;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Người dùng không tồn tại.");
+                return View(model);
+            }
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Mật khẩu và xác nhận mật khẩu không trùng khớp.");
+                return View(model);
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return View("ResetPasswordConfirmation");
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(model);
+        }
+
         //valid password
         private bool IsPasswordValid(string password)
         {

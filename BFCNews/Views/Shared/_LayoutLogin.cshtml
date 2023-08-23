@@ -7,6 +7,7 @@
     <title>Login Page</title>
     <!-- Bootstrap CSS link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <style>
         body {
             background-image: url('../../dist/imgbackground/backgroundlogin.jpg');
@@ -14,35 +15,31 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        .confirmation-container {
+            text-align: center;
+            background-color: white; /* Đặt màu nền thành màu trắng */
+            padding: 50px; /* Thêm padding cho .confirmation-container */
+            border-radius: 10px; /* Đặt viền cong cho .confirmation-container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Đặt hiệu ứng bóng đổ */
+            max-width: 400px; /* Đặt chiều rộng tối đa */
+            margin: 0 auto; /* Căn giữa theo chiều ngang */
+        }
+
+        .confirmation-icon {
+            color: green;
+            font-size: 100px;
+        }
+
+        .confirmation-text {
+            font-size: 24px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
 <body>
     @RenderBody()
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-4">Login</h4>
-                        <form asp-action="Login">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Email address</label>
-                                <input type="text" class="form-control" name="Username" id="Username" placeholder="Enter your email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="Password" placeholder="Enter your password">
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Bootstrap JS and Popper.js scripts (place at the end of the body for better performance) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>

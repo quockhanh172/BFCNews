@@ -7,8 +7,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
-        <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <img src="../../dist/img/logobinhdien.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin News</span>
     </a>
 
     <!-- Sidebar -->
@@ -24,7 +24,7 @@
                     <img src="../../Uploads/@user.Avatar" class="img-circle elevation-2" alt="User Image" style="height:35px;width:35px">
                 </div>
                 <div class="info">
-                    <div class="d-block" style="color:white">@user.FullName</div><a href="@Url.Action("Logout","User")">Logout</a>
+                        <div class="d-block" style="color:white"><a href="@(Url.Action("UserDetails", "User", new { @Id = user.Id }))">@user.FullName</a></div><a href="@Url.Action("Logout","User")">Logout</a>
                 </div>
             </div>
             }
