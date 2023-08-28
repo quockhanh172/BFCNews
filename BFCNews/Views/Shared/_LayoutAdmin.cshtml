@@ -101,6 +101,7 @@
     <script src="../../dist/js/ajax/CRUDajaxDepartment.js"></script>
     <script src="../../dist/js/ajax/CRUDajaxRole.js"></script>
     <script src="../../dist/js/ajax/CRUDajaxRegister.js"></script>
+    <script src="../../dist/js/ajax/ajaxChangePassword.js"></script>
     <!-- DataTables  & Plugins -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -136,6 +137,19 @@
           });
 
             $('.selectpicker').selectpicker();
+        reload1s = () => {
+            setTimeout(function () {
+                location.reload();
+            }, 500);
+        }
+        alertHide = () => {
+            $(".alert").css('display', 'none');
+        }
+        alertAutoHide = () => {
+            setTimeout(function () {
+                $(".alert").css('display', 'none');
+            }, 1000);  
+        }
     </script>
 </body>
 </html>

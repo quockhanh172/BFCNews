@@ -1,4 +1,4 @@
-﻿using BFCNews.Models;
+﻿using BFCNews.ModelsView;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

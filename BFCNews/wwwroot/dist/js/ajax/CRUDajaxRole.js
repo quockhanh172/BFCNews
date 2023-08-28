@@ -1,6 +1,7 @@
 ﻿var rowEditRole;
 $(document).ready(function () {
     $("#modal-Add-Role").on("click", "#btnAdd", () => {
+        $(".alert").css('display', 'none');
         var name = $("#Role").val().toString();
         if (name != null) {
             var formdata = new FormData($("#form-Add-Role")[0]);
@@ -49,6 +50,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $(".alert").css('display', 'none');
     $("#modal-Edit-Role").on('click', '#btn-Edit-Role', () => {
         var id = rowEditRole.find("td:eq(0)").text();
         var formData = new FormData($("#form-Edit-Role")[0]);

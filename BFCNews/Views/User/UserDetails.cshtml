@@ -24,7 +24,7 @@
                         <dt>Tên người dùng:</dt>
                         <dd><input type="text" value="@userDetail.UserName" disabled/></dd>
                         <dt>Password:</dt>
-                        <dd><input type="password" value="@userDetail.PasswordHash" disabled /> <button><i class="fas fa-edit"></i></button></dd>
+                        <dd><input type="password" value="@userDetail.PasswordHash" disabled /><button id="btnChangePassword"><i class="fas fa-edit"></i></button></dd>
                         <dt>Email:</dt>
                         <dd><input type="text" value="@userDetail.Email" disabled /></dd>
                         <dt>Họ Tên:</dt>
@@ -42,6 +42,42 @@
                         <!-- Các thông tin khác của người dùng -->
                     </dl>
                 </div>   
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form id="formChangePassword">
+                        <input type="text" value="@userDetail.Id" name="UserId" hidden/>
+                        <div class="mb-3"> 
+                            <label for="CurrentPassword" class="form-label">Curren Password</label>
+                            <input type="password" class="form-control" name="CurrentPassword" id="CurrentPassword" placeholder="Password hiện tại">
+                        </div>
+                        <div class="mb-3">
+                            <label for="NewPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="Password mới">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ConfirmPassword" class="form-label">Confirm Password Password</label>
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Nhắc lại Password mới">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="ChangePassword">Lưu thay đổi</button>
             </div>
         </div>
     </div>

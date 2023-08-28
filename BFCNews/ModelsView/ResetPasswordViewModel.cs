@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BFCNews.Models
+namespace BFCNews.ModelsView
 {
     public class ResetPasswordViewModel
     {

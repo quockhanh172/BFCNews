@@ -1,6 +1,7 @@
 ﻿var rowDelete;
 var rowEdit;
 $(document).ready(function () {
+    $(".alert").css('display', 'none');
     $("#modal-Add-Department").on("click","#btnAdd",()=>{
         var name = $("#Department").val().toString();
         if (name != null) {
@@ -53,6 +54,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $(".alert").css('display', 'none');
     $("#modal-Edit-Department").on('click', '#btn-Edit-Department', () => {
         var id = rowEdit.find("td:eq(0)").text();
         var formData = new FormData($("#form-Edit-Department")[0]);

@@ -1,5 +1,5 @@
 ﻿using BFCNews.Data;
-using BFCNews.Models;
+using BFCNews.ModelsView;
 using BFCNews.Service;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -322,6 +322,40 @@ namespace BFCNews.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
+        }
+
+        //Change Password
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                if (user == null)
+                {
+                    return Json(new { success = false, errors = new List<string> { "Không tìm thấy tên người dùng." } });
+                }
+                var currenPasswordCheck =  _userManager.CheckPasswordAsync( user, model.CurrentPassword);
+                if (await currenPasswordCheck !=true)
+                {
+                    return Json(new { success = false, errors = new List<string> { "Mật khẩu cũ không chính xác." } });
+                }
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (changePasswordResult.Succeeded)
+                {
+                    return Json(new { success = true, message = "Đổi mật khẩu thành công" });
+                }
+                else
+                {
+                    // Lấy danh sách lỗi từ changePasswordResult.Errors và trả về dưới dạng JSON
+                    var errors = changePasswordResult.Errors.Select(e => e.Description).ToList();
+                    return Json(new { success = false, errors = errors });
+                }
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, errors = errors });
+            }
         }
 
         //valid password

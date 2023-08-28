@@ -37,7 +37,8 @@ $(document).ready(() => {
             $("#inputDepartment").hide();
         }
     });
-    $("#modal-Add-Account").on("click", "#btnAdd", function()  {
+    $("#modal-Add-Account").on("click", "#btnAdd", function () {
+        $(".alert").css('display', 'none');
         var name = $("#userName").val().toString();
         var email = $("#email").val().toString();
         var role = $("#Role").val().toString();
@@ -88,7 +89,8 @@ $(document).ready(() => {
 }) 
 
 $(document).ready(()=> {
-   $('#tbAccount').on('click', '.btn-danger', function() {
+    $('#tbAccount').on('click', '.btn-danger', function () {
+        $(".alert").css('display', 'none');
        var rowAccountLock = $(this).closest('tr');
        var userName = rowAccountLock.find('td:eq(1)').text();
        if (userName != "") {
@@ -123,6 +125,7 @@ $(document).ready(()=> {
 
 $(document).ready(() => {
     $('#tbAccount').on('click', '.btn-primary', function () {
+        $(".alert").css('display', 'none');
         var rowAccountLock = $(this).closest('tr');
         var userName = rowAccountLock.find('td:eq(1)').text();
         if (userName != "") {
@@ -147,8 +150,4 @@ $(document).ready(() => {
 })
 
 
-reload1s = () => {
-    setTimeout(function () {
-        location.reload();
-    }, 500);
-}
+
