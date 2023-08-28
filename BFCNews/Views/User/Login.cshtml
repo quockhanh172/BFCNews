@@ -1,4 +1,6 @@
-﻿@{
+﻿@using BFCNews.ModelsView;
+@model LoginViewModel
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
@@ -8,19 +10,27 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4">Login</h4>
-                    <form asp-action="Login">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" name="Username" id="Username" placeholder="Enter your email">
+                    <form asp-action="Login" method="post">
+                         <div class="mb-3">
+                            <label for="Username" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="Username" id="Username" placeholder="Enter your username" value="@Html.DisplayFor(model => model.Username)">
+                           
+                            <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
+                        
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="Password" placeholder="Enter your password">
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Enter your password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
+                        @Html.ValidationSummary(true,"",new { @class = "text-danger" })
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Login</button>
                         </div>
-                        <div style="margin-top:15px">Bạn đã quên mật khẩu? <a href="@Url.Action("ForgotPassword","User")" style="text-decoration:none;">Nhấn vào đây</a> để lấy lại mật khẩu</div>
+                        
+                        <div style="margin-top: 15px">
+                            Bạn đã quên mật khẩu? <a href="@Url.Action("ForgotPassword","User")" style="text-decoration:none;">Nhấn vào đây</a> để lấy lại mật khẩu
+                        </div>
                     </form>
                 </div>
             </div>

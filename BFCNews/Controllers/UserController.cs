@@ -45,31 +45,37 @@ namespace BFCNews.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(string Username, string Password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var user = await _userManager.FindByNameAsync(Username);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, Password, true, lockoutOnFailure: true);
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, lockoutOnFailure: true);
 
-                if (result.Succeeded && await _userManager.IsLockedOutAsync(user) == false)
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-                if (await _userManager.IsLockedOutAsync(user))
-                {
-                    return RedirectToAction("AccountLocked", "Error");
+                    if (result.Succeeded && !await _userManager.IsLockedOutAsync(user))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
+                    if (await _userManager.IsLockedOutAsync(user))
+                    {
+                        ModelState.AddModelError(string.Empty, "Tài khoản của bạn đã bị khóa.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Login");
+                    ModelState.AddModelError(string.Empty, "Tài khoản không tồn tại.");
                 }
             }
-            else
-            {
-                return RedirectToAction("AccountLocked", "Error");
-            }
-            
+
+            // Nếu ModelState không hợp lệ, trả về view với các thông báo lỗi.
+            return View(model);
         }
 
         
