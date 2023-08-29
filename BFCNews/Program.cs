@@ -49,14 +49,31 @@ builder.Services.ConfigureApplicationCookie(options =>
 //build policy
 builder.Services.AddAuthorization(options =>
 {
+    options.AddPolicy("AdminOrSuperAdmin", policy => 
+    policy.RequireAssertion(context =>
+        context.User.IsInRole("SuperAdmin")||
+        context.User.IsInRole("Admin")
+    ));
     options.AddPolicy("VipManager", policy =>
-         policy.RequireClaim("Permission", "Level1"));
+         policy.RequireAssertion(context =>
+         context.User.HasClaim(c =>c.Type == "Permission" && c.Value == "Level1") ||
+         context.User.IsInRole("SuperAdmin")
+         )) ;
     options.AddPolicy("DeputyCEO", policy =>
-        policy.RequireClaim("Permission", "Level2"));
+        policy.RequireAssertion(context=>
+        context.User.HasClaim(c => c.Type == "Level2" && c.ValueType == "Permission") ||
+        context.User.IsInRole("SuperAdmin")
+         ));
     options.AddPolicy("DHD", policy =>
-        policy.RequireClaim("Permission", "Level3"));
+       policy.RequireAssertion(context =>
+        context.User.HasClaim(c => c.Type == "Level3" && c.ValueType == "Permission") ||
+        context.User.IsInRole("SuperAdmin")
+         ));
     options.AddPolicy("Employee", policy =>
-        policy.RequireClaim("Permission", "Level4"));
+       policy.RequireAssertion(context =>
+        context.User.HasClaim(c => c.Type == "Level4" && c.ValueType == "Permission") ||
+        context.User.IsInRole("SuperAdmin")
+       ));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>

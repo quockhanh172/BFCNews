@@ -1,4 +1,5 @@
-﻿using BFCNews.ModelsView;
+﻿using BFCNews.Models;
+using BFCNews.ModelsView;
 using BinhdienNews.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,14 +12,11 @@ namespace BFCNews.Data
             : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Ignore<ResetPasswordViewModel>();
-            modelBuilder.Ignore<ForgotPasswordViewModel>();
-        }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentUser> DepartmentUsers { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
