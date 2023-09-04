@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BFCNews.Models;
+using System.Collections;
 
 namespace BinhdienNews.Models
 {
@@ -8,5 +9,6 @@ namespace BinhdienNews.Models
         public string Name { get; set; }
         public bool Status { get; set; }
         public List<DepartmentUser> DepartmentUsers{ get; set; }
+        public List<Post> Posts { get; set; }
     }
 }

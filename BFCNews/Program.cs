@@ -61,17 +61,17 @@ builder.Services.AddAuthorization(options =>
          )) ;
     options.AddPolicy("DeputyCEO", policy =>
         policy.RequireAssertion(context=>
-        context.User.HasClaim(c => c.Type == "Level2" && c.ValueType == "Permission") ||
+        context.User.HasClaim(c => c.Value == "Level2" && c.Type == "Permission") ||
         context.User.IsInRole("SuperAdmin")
          ));
     options.AddPolicy("DHD", policy =>
        policy.RequireAssertion(context =>
-        context.User.HasClaim(c => c.Type == "Level3" && c.ValueType == "Permission") ||
+        context.User.HasClaim(c => c.Value == "Level3" && c.Type == "Permission") ||
         context.User.IsInRole("SuperAdmin")
          ));
     options.AddPolicy("Employee", policy =>
        policy.RequireAssertion(context =>
-        context.User.HasClaim(c => c.Type == "Level4" && c.ValueType == "Permission") ||
+        context.User.HasClaim(c => c.Value == "Level4" && c.Type == "Permission") ||
         context.User.IsInRole("SuperAdmin")
        ));
 });
@@ -84,6 +84,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 builder.Services.AddScoped<IFileService,FileService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddMvc();

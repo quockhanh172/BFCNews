@@ -9,69 +9,113 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BFCNews
 build_property.RootNamespace = BFCNews
-build_property.ProjectDir = F:\BFCNews\BFCNews\
+build_property.ProjectDir = C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = F:\BFCNews\BFCNews
+build_property.MSBuildProjectDirectory = C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews
 build_property._RazorSourceGeneratorDebug = 
 
-[F:/BFCNews/BFCNews/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Admin/Index.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Department/Index.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Department/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Role/Index.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Error/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Error/AccountLocked.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcQWNjb3VudExvY2tlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Error/PermissionDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcUGVybWlzc2lvbkRlbmllZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Management/Posts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlbWVudFxQb3N0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Role/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/Error/_LayoutAccountLocked.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yXF9MYXlvdXRBY2NvdW50TG9ja2VkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_AsidePartial.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/Error/_LayoutError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yXF9MYXlvdXRFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/Error/_LayoutPermission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yXF9MYXlvdXRQZXJtaXNzaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_AsidePartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Bc2lkZVBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_ContentHeaderPartial.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_ContentHeaderPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db250ZW50SGVhZGVyUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_LayoutAdmin.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_LayoutLogin.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_LayoutLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_NavbarPartial.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_NavbarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXJQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/User/Login.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/ForgotPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/User/Register.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/_ViewImports.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/ResetPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/User/UserDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVc2VyRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/BFCNews/BFCNews/Views/_ViewStart.cshtml]
+[C:/Users/Acer/Desktop/BFC/BinhdienNews/BFCNews/BFCNews/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

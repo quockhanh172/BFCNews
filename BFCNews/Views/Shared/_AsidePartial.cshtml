@@ -54,34 +54,41 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="sidebarAdmin">
-                    <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-
-                    <li class="nav-item">
-                        <a href="@Url.Action("Index", "Department" )" class="nav-link" id="department" data-id="Department">
-                            <i class="nav-icon fas fa fa-building"></i>
-                            <p>
-                                Deparment
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="@Url.Action("Index", "Role" )" class="nav-link">
-                            <i class="nav-icon fas fa-user-tie"></i>
-                            <p>
-                                Role
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="@Url.Action("Register","User")" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Create Account
-                            </p>
-                        </a>
-                    </li>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="sidebarAdmin">
+                <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Department" )" class="nav-link" id="department" data-id="Department">
+                        <i class="nav-icon fas fa fa-building"></i>
+                        <p>
+                            Deparment
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Role" )" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Role
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Register","User")" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Create Account
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Posts","Management")" class="nav-link">
+                        <i class="nav-icon fa fa-tasks"></i>
+                        <p>
+                            Management
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>

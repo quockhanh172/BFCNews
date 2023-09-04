@@ -512,3 +512,4 @@ C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\obj\Debug\net6.0\refint\B
 C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\obj\Debug\net6.0\BFCNews.pdb
 C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\obj\Debug\net6.0\BFCNews.genruntimeconfig.cache
 C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\obj\Debug\net6.0\ref\BFCNews.dll
+C:\Users\Acer\Desktop\BFC\BinhdienNews\BFCNews\BFCNews\bin\Debug\net6.0\HtmlAgilityPack.dll
