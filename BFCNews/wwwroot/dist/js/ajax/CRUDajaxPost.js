@@ -1,7 +1,28 @@
 ﻿$(document).ready(function () {
     $('#uploadModal').on('click','#addPost',function () {
         var formData = new FormData($("#addPostForm")[0]);
-        formData.append('content', $('#summernote').val());
+        var content = $('#summernote').summernote('code');
+        formData.append('content', content);
+
+        // Lấy danh sách tệp hình ảnh từ nội dung HTML
+        var imageUrls = [];
+        $(content).find('img').each(function () {
+            var imageUrl = $(this).attr('src');
+            console.log(imageUrl+"-----------")
+            imageUrls.push(imageUrl);
+        });
+        imageUrls.forEach(function (imageUrl) {
+            var imageName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Thêm Blob vào FormData với tên imageName
+                    formData.append('images[]', blob, imageName);
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải hình ảnh:', error);
+                });
+        });
         $.ajax({
             url: '/Management/Add',
             type: "POST",

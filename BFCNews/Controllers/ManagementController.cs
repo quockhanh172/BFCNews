@@ -19,10 +19,11 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string content,string title) 
+        public async Task<IActionResult> Add(string content,string title, List<IFormFile> images) 
         {
-            string content1 = content;
-            string content2 = title;
+            var x = images;
+            var b = content;
+            var c = title;
             return await Task.FromResult<IActionResult>(Json("success"));
         }
     }

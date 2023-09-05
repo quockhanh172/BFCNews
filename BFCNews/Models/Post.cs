@@ -16,5 +16,6 @@ namespace BFCNews.Models
         public Department Department { get; set; }
         public Category Category { get; set; }
         public string File { get; set; }
+        public List<ImageOfPost> ImageOfPosts { get; set; }
     }
 }
