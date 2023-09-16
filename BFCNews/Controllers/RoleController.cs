@@ -15,8 +15,10 @@ namespace BFCNews.Controllers
         {
             _roleManager = roleManager;
         }
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string activelink)
         {
+            ViewBag.Activelink = activelink;
             var Roles = _roleManager.Roles.OrderByDescending(a => a.Name).ToList();
             ViewBag.Roles = Roles;
             return View();

@@ -57,22 +57,22 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("VipManager", policy =>
          policy.RequireAssertion(context =>
          context.User.HasClaim(c =>c.Type == "Permission" && c.Value == "Level1") ||
-         context.User.IsInRole("SuperAdmin")
+         context.User.IsInRole("SuperAdmin") || context.User.IsInRole("Admin")
          )) ;
     options.AddPolicy("DeputyCEO", policy =>
         policy.RequireAssertion(context=>
         context.User.HasClaim(c => c.Value == "Level2" && c.Type == "Permission") ||
-        context.User.IsInRole("SuperAdmin")
+        context.User.IsInRole("SuperAdmin") || context.User.IsInRole("Admin")
          ));
     options.AddPolicy("DHD", policy =>
        policy.RequireAssertion(context =>
         context.User.HasClaim(c => c.Value == "Level3" && c.Type == "Permission") ||
-        context.User.IsInRole("SuperAdmin")
+        context.User.IsInRole("SuperAdmin") || context.User.IsInRole("Admin")
          ));
     options.AddPolicy("Employee", policy =>
        policy.RequireAssertion(context =>
         context.User.HasClaim(c => c.Value == "Level4" && c.Type == "Permission") ||
-        context.User.IsInRole("SuperAdmin")
+        context.User.IsInRole("SuperAdmin")||context.User.IsInRole("Admin")
        ));
 });
 
@@ -112,7 +112,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

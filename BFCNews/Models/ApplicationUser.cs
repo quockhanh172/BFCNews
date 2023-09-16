@@ -5,7 +5,7 @@ namespace BinhdienNews.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ApplicationUser()
+            public ApplicationUser()
         {
             DepartmentUsers = new List<DepartmentUser>(); // Khởi tạo DepartmentUsers trong constructor
         }

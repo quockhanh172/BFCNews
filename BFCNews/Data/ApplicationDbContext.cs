@@ -16,6 +16,6 @@ namespace BFCNews.Data
         public DbSet<DepartmentUser> DepartmentUsers { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<ImageOfPost> ImageOfPosts { get; set; }
+        public DbSet<FileOfPost> Files { get; set; }
     }
 }

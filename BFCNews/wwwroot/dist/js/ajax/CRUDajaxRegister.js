@@ -22,16 +22,8 @@ $(document).ready(() => {
             $("#Claim").show();
             $("#inputPosition").show();
             $("#inputDepartment").show();
-            $("#ClaimAdmin").hide();
         }
-        if (selectedValue === "Admin") {
-            $("#ClaimAdmin").show();
-            $('#Claim').hide();
-            $("#inputPosition").hide();
-            $("#inputDepartment").hide();
-        }
-        if (selectedValue === "SuperAdmin") {
-            $("#ClaimAdmin").hide();
+        if (selectedValue === "SuperAdmin"|| selectedValue === "Admin") {
             $('#Claim').hide();
             $("#inputPosition").hide();
             $("#inputDepartment").hide();
@@ -88,7 +80,31 @@ $(document).ready(() => {
     });
 }) 
 
-$(document).ready(()=> {
+$(document).ready(() => {
+    $('#tbAccount').on('click', '.btn-primary', function () {
+        $(".alert").css('display', 'none');
+        var rowAccountLock = $(this).closest('tr');
+        var userName = rowAccountLock.find('td:eq(1)').text();
+        if (userName != "") {
+            $.ajax({
+                url: '/User/LockDownAccount',
+                type: 'Post',
+                data: { username: userName },
+                success: function (response) {
+                    if (response.messager == "Success") {
+                        reload1s();
+                    }
+                    if (response.messager == "Error") {
+                        $("#msgalert").text("Lỗi");
+                        $(".alert").css("background", "#FF0000");
+                        $(".alert").css('display', 'block');
+                        autoHide();
+                    }
+                }
+            })
+        }
+    });
+
     $('#tbAccount').on('click', '.btn-danger', function () {
         $(".alert").css('display', 'none');
        var rowAccountLock = $(this).closest('tr');
@@ -115,39 +131,10 @@ $(document).ready(()=> {
                    }
                },error: function (xhr, status, error) {
                    // Handle errors here
-                   var relativePath = 'Error/PermissionDenied';
-                   window.location.pathname = relativePath;
+                   var relativePath = '/Error/PermissionDenied';
+                   window.location.href = relativePath;
                }
            })
        }
     });
 })
-
-$(document).ready(() => {
-    $('#tbAccount').on('click', '.btn-primary', function () {
-        $(".alert").css('display', 'none');
-        var rowAccountLock = $(this).closest('tr');
-        var userName = rowAccountLock.find('td:eq(1)').text();
-        if (userName != "") {
-            $.ajax({
-                url: '/User/LockDownAccount',
-                type: 'Post',
-                data: { username: userName },
-                success: function (response) {
-                    if (response.messager == "Success") {
-                        reload1s();
-                    }
-                    if (response.messager == "Error") {
-                        $("#msgalert").text("Lỗi");
-                        $(".alert").css("background", "#FF0000");
-                        $(".alert").css('display', 'block');
-                        autoHide();
-                    }
-                }
-            })
-        }
-    });
-})
-
-
-

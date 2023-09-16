@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     @inject UserManager<ApplicationUser> userManager
     @inject ApplicationDbContext context;
+    var Posts = ViewBag.Posts;
 }
 <section class="content">
     <div class="container-fluid">
@@ -23,14 +24,84 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="tbAccount" class="table table-bordered table-hover">
+                        <table id="tbPost" class="table table-bordered table-hover">
                             <thead>
-
+                                <tr>
+                                    <th>Tiêu đề</th>
+                                    <th>Họ Tên</th>
+                                    <th>Ngày đăng</th>
+                                    <th>Files</th>
+                                    <th>Chức năng</th>
+                                </tr>
                             </thead>
                             <tbody>
+                                @{
+                                    if (Posts != null)
+                                    {
+                                        foreach (var post in Posts)
+                                        {
+                                            <tr data-post-id="@post.Id">
+                                                <td style="text-align:left;width: 20%;"><a href="#" target="_blank">@post.Title</a></td>
+                                                <td style="width: 20%;">@post.User.FullName</td>
+                                                <td style="width: 20%;">@post.PublishedDate.ToString("dd/MM/yyyy")</td>
+                                                <td style="text-align:left;width: 30%;">
+                                                    @if (post.Files!=null)
+                                                    {
+                                                        @foreach (var item in post.Files)
+                                                        {
+                                                            <a href="../../OfficeUploads/@item.Image">
+                                                                <i class="fas fa-file"></i>@item.Image
+                                                            </a><br />
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        
+                                                    }
+                                                </td>
 
+                                                <td style="width:20%">
+                                                    <button class="btn btn-warning">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button><button class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        };
+                                    }
+                                }
                             </tbody>
                         </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="tbPostStatus" aria-live="polite">Showing 1 to 8 of 8 entries</div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="tbAccount_paginate">
+                                <ul class="pagination" id="pagination-post">
+                                    <li class="paginate_button page-item previous disabled" id="tbAccount_previous">
+                                        <a href="#" aria-controls="tbAccount" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                    <!-- Thêm các nút trang từ 2 đến 10 -->
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="7" tabindex="0" class="page-link">7</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="8" tabindex="0" class="page-link">8</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="9" tabindex="0" class="page-link">9</a></li>
+                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="10" tabindex="0" class="page-link">10</a></li>
+                                    <li class="paginate_button page-item next disabled" id="tbAccount_next">
+                                        <a href="#" aria-controls="tbAccount" data-dt-idx="11" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -43,7 +114,7 @@
     <!-- /.container-fluid -->
 </section>
 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog custom-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="uploadModalLabel">Đăng tải bài viết</h5>
@@ -55,24 +126,135 @@
                 <!-- Form đăng tải bài viết -->
                 <form id="addPostForm" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="title">Tiêu đề:</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <label for="Title">Tiêu đề</label>
+                        <input type="text" class="form-control" id="Title" name="Title">
                     </div>
                     <div class="form-group">
-                        <label for="content">Nội dung:</label>
-                        <textarea id="summernote" name="content">
-                            Place <em>some</em> <u>text</u> <strong>here</strong>
-                        </textarea>
+                        <label for="Summary">Tóm tắt</label>
+                        <input type="text" class="form-control" id="Summary" name="Summary">
                     </div>
                     <div class="form-group">
-                        <label for="file">Chọn tệp:</label>
-                        <input type="file" class="form-control-file" id="file" name="OfficeFile">
+                        <label for="editor">Nội dung</label>
+                        <div id="editor">
+
+                        </div>
+                        <script>
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'),{
+                                        removePlugins: ['Title'],
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label for="OfficeFile" class="custom-file-label">Chọn tệp</label>
+                        <input type="file" class="form-control-file" id="OfficeFile" name="OfficeFile" multiple accept=".doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf">
+                        <p id="selected-file-names">No file selected</p>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-primary" id="addPost">Đăng tải</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditPostModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Đăng tải bài viết</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form đăng tải bài viết -->
+                <form id="editPostForm" enctype="multipart/form-data">
+                    <input hidden id="id-edit-post" name="id">
+                    <div class="form-group">
+                        <label for="Title">Tiêu đề</label>
+                        <input type="text" class="form-control" id="EditTitle" name="TitleEdit">
+                    </div>
+                    <div class="form-group">
+                        <label for="Summary">Tóm tắt</label>
+                        <input type="text" class="form-control" id="EditSummary" name="SummaryEdit">
+                    </div>
+                    <div class="form-group">
+                        <label for="editor">Nội dung</label>
+                        <div id="EditPostEditor">
+                        </div>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#EditPostEditor'), {
+                                    removePlugins: ['Title'],
+                                })
+                                .then(newEditor => {
+                                    EditPostEditor = newEditor;
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label for="OfficeFileEdit" class="custom-file-label">Chọn tệp</label>
+                        <input type="file" class="form-control-file" id="OfficeFileEdit" name="OfficeFileEdit" multiple accept=".doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf">
+                        <p id="selected-file-names-edit">No file selected</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="editPost">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa bài đăng không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirmedButton">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PostDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog custom-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel" style="font-weight:bold">Nội dung</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="mini-date">Ngày: <span id="datePlaceholder"></span></div>
+            <div class="modal-body" id="modalDetailContent">
+                <!-- Nội dung modal sẽ được thay thế ở đây -->
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="attachment-title">File Đính kèm:</div>
+                <div id="filesDetailFooter"></div>
             </div>
         </div>
     </div>

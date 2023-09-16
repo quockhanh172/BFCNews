@@ -56,7 +56,24 @@ namespace BFCNews.Controllers
 
                     if (result.Succeeded && !await _userManager.IsLockedOutAsync(user))
                     {
-                        return RedirectToAction("Index", "Admin");
+                        var isRoleAdmin = await _userManager.IsInRoleAsync(user,"Admin");
+                        var isRoleSuperAdmin = await _userManager.IsInRoleAsync(user, "SuperAdmin");
+                        var isRoleUser = await _userManager.IsInRoleAsync(user, "User");
+                        if (isRoleAdmin || isRoleSuperAdmin)
+                        {
+                            return RedirectToAction("Index", "Department");
+                        }
+                        if (isRoleUser)
+                        {
+                            var claimUser = await _userManager.GetClaimsAsync(user);
+                            var DeparmentOfUser = _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du => du.Department).Where(u=>u.Id==user.Id).FirstOrDefault();
+                            var departmentOfUser = DeparmentOfUser?.DepartmentUsers?.FirstOrDefault()?.Department;
+                            if (claimUser != null && claimUser.FirstOrDefault().Value=="Level3")
+                            {
+                                return RedirectToAction("Posts", "Management", new { department = departmentOfUser.Name});
+                            }
+                        }
+                        return RedirectToAction("Index", "Home");
                     }
 
                     if (await _userManager.IsLockedOutAsync(user))
@@ -78,16 +95,17 @@ namespace BFCNews.Controllers
             return View(model);
         }
 
-        
-        public IActionResult Register()
+        [HttpGet]
+        public IActionResult Register(string activelink)
         {
+            ViewBag.Activelink = activelink;
             var Roles = _roleManager.Roles.OrderBy(a => a.Name).ToList();
             ViewBag.Roles = Roles;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string userClaim,string adminClaim, string Position, List<int> Department)
+        public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string userClaim, string Position, List<int> Department)
         {
             if (userName != null)
             {
@@ -137,12 +155,6 @@ namespace BFCNews.Controllers
                         }
                     
                         return await Task.FromResult<IActionResult>(Json(new { messager = "success"}));
-                    }
-                    else if (adminClaim != null && role=="Admin")
-                    {
-                        await _userManager.AddToRoleAsync(user, role);
-                        await _userManager.AddClaimAsync(user, new Claim("PermissionAdmin", adminClaim));
-                        return await Task.FromResult<IActionResult>(Json(new { messager = "success" }));
                     }
                     else
                     {

@@ -1,0 +1,55 @@
+﻿.custom-modal {
+    max-width: 1200px; /* Đặt chiều rộng tối đa */
+    width: 90%; /* Đặt chiều rộng mặc định */
+    max-height: 800px; /* Đặt chiều cao tối đa */
+    height: 80%; /* Đặt chiều cao mặc định */
+}
+
+#OfficeFile {
+    display: none; /* Ẩn trường nhập tệp */
+}
+#OfficeFileEdit {
+    display: none; /* Ẩn trường nhập tệp */
+}
+
+.custom-file-label {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-label::after {
+    content: 'Chọn tệp';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px; /* Điều chỉnh kích thước của nút "Chọn tệp" */
+    pointer-events: none; /* Ngăn truy cập vào nút "Chọn tệp" qua trường nhập tệp */
+}
+
+
+/* CSS cho nội dung modal */
+
+#PostDetailModal .modal-body img {
+    width: 100%; /* Đảm bảo rằng chiều rộng tối đa của hình ảnh không vượt quá chiều rộng của modal */
+    height: auto; /* Tự động tính toán chiều cao để duy trì tỷ lệ khung */
+}
+
+body {
+    --ck-z-default: 100;
+    --ck-z-modal: calc( var(--ck-z-default) + 999 );
+}
+
+/*
+	Override Bootstrap's CSS.
+	Note: this won't be necessary once the following issue is fixed and released:
+	https://github.com/ckeditor/ckeditor5-theme-lark/issues/189
+*/
+.ck.ck-button {
+    -webkit-appearance: none;
+}
+

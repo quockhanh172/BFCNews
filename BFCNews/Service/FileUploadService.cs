@@ -31,9 +31,19 @@ namespace BFCNews.Service
                     Directory.CreateDirectory(path);
                 }
 
-                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var originalFileName = Path.GetFileName(file.FileName);
+                var uniqueFileName = originalFileName;
                 var filePath = Path.Combine(path, uniqueFileName);
+                int count = 1;
+                while (System.IO.File.Exists(filePath))
+                {
+                    // If a file with the same name exists, add a number to make it unique
+                    uniqueFileName = Path.GetFileNameWithoutExtension(originalFileName) + "_" + count + Path.GetExtension(originalFileName);
+                    filePath = Path.Combine(path, uniqueFileName);
+                    count++;
+                }
                 var stream = new FileStream(filePath, FileMode.Create);
+                file.CopyTo(stream);
                 // Save the file to the server
                 stream.Close();
                 return new Tuple<int, string>(1, uniqueFileName);

@@ -73,6 +73,27 @@ namespace BFCNews.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("BFCNews.Models.FileOfPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("BFCNews.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -90,26 +111,20 @@ namespace BFCNews.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("File")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LikesCount")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ViewsCount")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -392,6 +407,15 @@ namespace BFCNews.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BFCNews.Models.FileOfPost", b =>
+                {
+                    b.HasOne("BFCNews.Models.Post", "Post")
+                        .WithMany("Files")
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("BFCNews.Models.Post", b =>
                 {
                     b.HasOne("BFCNews.Models.Category", "Category")
@@ -487,6 +511,8 @@ namespace BFCNews.Migrations
             modelBuilder.Entity("BFCNews.Models.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("BinhdienNews.Models.ApplicationUser", b =>

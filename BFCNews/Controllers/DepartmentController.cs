@@ -18,8 +18,9 @@ namespace BFCNews.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string activelink)
         {
+            ViewBag.Activelink = activelink;
             var departments = _context.Departments.OrderBy(x=>x.Id).ToList();
             if (departments !=null)
             {
