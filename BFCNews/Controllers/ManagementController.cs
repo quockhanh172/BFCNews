@@ -8,6 +8,9 @@ using BinhdienNews.Models;
 using BFCNews.Service;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
+using System.Globalization;
+using BFCNews.ModelsView;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace BFCNews.Controllers
 {
@@ -52,9 +55,14 @@ namespace BFCNews.Controllers
                         if (hasRole || hasRole1)
                         {
                             var Posts = _context.Posts.Include(p => p.Files)
-                            .Include(p => p.Department)
-                            .Include(p => p.User).ToList();
+                                                      .Include(p => p.Department)
+                                                      .Include(p => p.User)
+                                                      .Take(8)
+                                                      .OrderByDescending(p => p.PublishedDate)
+                                                      .ToList();
                             ViewBag.Posts = Posts;
+                            int totalPosts = _context.Posts.Count();
+                            ViewBag.Count = totalPosts;
                             return View();
                         }
                         else
@@ -63,18 +71,42 @@ namespace BFCNews.Controllers
                         }
 
                     }
+                    else if(_context.Categories.Any(c=>c.Name == department)){
+                        if(hasRole || hasRole1)
+                        {
+                            var posts = _context.Posts.Include(p=>p.Category)
+                                                      .Include(p=>p.Files)
+                                                      .Where(p=>p.Category.Name==department)
+                                                      .OrderByDescending(p => p.PublishedDate)
+                                                      .Take(8)
+                                                      .ToList();
+                            var totalPosts= _context.Posts.Include(p => p.Category).Include(p => p.Files).Where(p => p.Category.Name == department).Count();
+                            ViewBag.Count = totalPosts;
+                            ViewBag.Posts = posts;
+                            return View();
+                        }
+                    }
                     else
                     {
-                        var currentuser = _context.Users.Include(u => u.DepartmentUsers).ThenInclude(ud => ud.Department).FirstOrDefault(u => u.Id == user.Id);
-                        var DeparmentOfUser = currentuser.DepartmentUsers.Select(ud => ud.Department).FirstOrDefault();
+                        var CurrentUser = _context.Users.Include(u => u.DepartmentUsers).ThenInclude(ud => ud.Department).FirstOrDefault(u => u.Id == user.Id);
+                        var DeparmentOfUser = CurrentUser.DepartmentUsers.Select(ud => ud.Department).FirstOrDefault();
                         if (DeparmentOfUser != null)
                         {
                             if (DeparmentOfUser.Name == department || hasRole || hasRole1)
                             {
-                                var posts = _context.Posts.Where(p => p.Department.Name == department).Include(p => p.Files)
-                                           .Include(p => p.Department)
-                                           .Include(p => p.User).ToList();
+                                var posts = _context.Posts.Where(p => p.Department.Name == department)
+                                                          .Include(p => p.Files)
+                                                          .Include(p => p.Department)
+                                                          .Include(p=>p.Category)
+                                                          .Include(p => p.User)
+                                                          .OrderByDescending(p=>p.PublishedDate)
+                                                          .Take(8)
+                                                          .ToList();
                                 ViewBag.Posts = posts;
+                                int totalPosts = _context.Posts.Where(p => p.Department.Name == department).Include(p => p.Files)
+                                           .Include(p => p.Department)
+                                           .Include(p => p.User).Count();
+                                ViewBag.Count = totalPosts;
                                 return View();
                             }
                             else
@@ -86,10 +118,18 @@ namespace BFCNews.Controllers
                         {
                             if (hasRole || hasRole1)
                             {
-                                var posts = _context.Posts.Where(p => p.Department.Name == department).Include(p => p.Files)
-                                           .Include(p => p.Department)
-                                           .Include(p => p.User).ToList();
+                                var posts = _context.Posts.Where(p => p.Department.Name == department)
+                                                          .Include(p => p.Files)
+                                                          .Include(p => p.Department)
+                                                          .Include(p => p.User)
+                                                          .OrderByDescending(p => p.PublishedDate)
+                                                          .Take(8)
+                                                          .ToList();
                                 ViewBag.Posts = posts;
+                                int totalPosts = _context.Posts.Where(p => p.Department.Name == department).Include(p => p.Files)
+                                           .Include(p => p.Department)
+                                           .Include(p => p.User).Count();
+                                ViewBag.Count = totalPosts;
                                 return View();
                             }
                             else
@@ -111,6 +151,89 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Pagination(int page, string category)
+        {
+            var Page = page;
+            var skip = (page - 1) * 8;
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            var Category = textInfo.ToTitleCase(category.ToLower());
+            var departments = _context.Departments;
+            if (Category == "All")
+            {             
+                var Posts = _context.Posts.Include(p => p.Files)
+                            .Include (p => p.Category)
+                            .Include(p => p.Department)
+                            .Include(p => p.User).Select(p => new Post
+                            {
+                                Id = p.Id,
+                                User = p.User,
+                                Category=p.Category,
+                                Comments = p.Comments,
+                                Content = p.Content,
+                                Department = p.Department,
+                                Files = p.Files,
+                                PublishedDate = DateTime.Now,
+                                Status = p.Status,
+                                Title = p.Title,
+                            }).OrderByDescending(p => p.PublishedDate)
+                            .Skip(skip)
+                            .Take(8)
+                            .ToList();
+                return Json(new {posts=Posts,message="success"});
+            }
+            if (departments.Any(d => d.Name == Category))
+            {
+                var Posts = _context.Posts.Where(p => p.Department.Name == category)
+                                          .Include(p => p.Files)
+                                          .Include(p => p.Department)
+                                          .Include(p => p.User)
+                                          .Select(p => new Post
+                                          {
+                                            Id = p.Id,
+                                            User = p.User,
+                                            Category = p.Category,
+                                            Comments = p.Comments,
+                                            Content = p.Content,
+                                            Department = p.Department,
+                                            Files = p.Files,
+                                            PublishedDate = DateTime.Now,
+                                            Status = p.Status,
+                                            Title = p.Title,
+                                          })
+                                          .OrderByDescending(p => p.PublishedDate)
+                                          .Skip(skip).Take(8)
+                                          .ToList();
+                return Json(new { posts = Posts, message = "success" });
+            }
+            if(_context.Categories.Any(c=>c.Name == Category))
+            {
+                var Posts = _context.Posts.Where(p => p.Category.Name == category)
+                                          .Include(p => p.Files)
+                                          .Include(p => p.Department)
+                                          .Include(p => p.User)
+                                          .Select(p => new Post
+                                          {
+                                              Id = p.Id,
+                                              User = p.User,
+                                              Category = p.Category,
+                                              Comments = p.Comments,
+                                              Content = p.Content,
+                                              Department = p.Department,
+                                              Files = p.Files,
+                                              PublishedDate = DateTime.Now,
+                                              Status = p.Status,
+                                              Title = p.Title,
+                                          })
+                                          .OrderByDescending(p => p.PublishedDate)
+                                          .Skip(skip).Take(8)
+                                          .ToList();
+                return Json(new { posts = Posts, message = "success" });
+            }
+
+            return Json(new { message = "success" });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Add(string Content, string Summary, string Title, List<IFormFile> OfficeFile)
         {
             var content = Content;
@@ -121,10 +244,9 @@ namespace BFCNews.Controllers
             var post = new Post();
 
             if (_SignInManager.IsSignedIn(User)) {
-                var user = await _UserManager.FindByNameAsync(User.Identity.Name);
-                var Department = _context.Users.Include(u => u.DepartmentUsers).ThenInclude(DU => DU.Department).Where(u => u.Id == user.Id).Select(u => u.DepartmentUsers.Select(DU => DU.Department)).FirstOrDefault().FirstOrDefault();
+                var user = await _UserManager.FindByNameAsync(User.Identity.Name);                              
                 bool hasPermission = User.Claims.Any(c => c.Type == "Permission" &&
-                                               (c.Value == "Level1" || c.Value == "Level2" || c.Value == "Level3"));
+                                           (c.Value == "Level1" || c.Value == "Level2" || c.Value == "Level3"));
                 bool hasRole = User.IsInRole("Admin");
                 bool hasRole1 = User.IsInRole("SuperAdmin");
 
@@ -138,7 +260,20 @@ namespace BFCNews.Controllers
                         post.Title = Title;
                         post.User = user;
                         post.Status = true;
-                        post.Department = Department;
+                        if (hasPermission )
+                        {
+                            var Department = _context.Users.Include(u => u.DepartmentUsers)
+                                                            .ThenInclude(DU => DU.Department)
+                                                            .Where(u => u.Id == user.Id).Select(u => u.DepartmentUsers
+                                                            .Select(DU => DU.Department)).FirstOrDefault().FirstOrDefault();
+                            post.Department = Department;
+                        }
+                        else
+                        {
+                            var Category = _context.Categories.Where(c=>c.Id==1).FirstOrDefault();
+                            post.Category = Category;
+                        }
+                        
                         post.PublishedDate = DateTime.Now;
 
                         var a = new List<string>();
@@ -300,7 +435,15 @@ namespace BFCNews.Controllers
                         oldPost.Title = TitleEdit;
                         oldPost.User = user;
                         oldPost.Status = true;
-                        oldPost.Department = Department;
+                        if (Department!=null)
+                        {
+                            post.Department = Department;
+                        }
+                        else
+                        {
+                            var Category = _context.Categories.Where(c => c.Id == 1).FirstOrDefault();
+                            post.Category = Category;
+                        }
                         oldPost.PublishedDate = DateTime.Now;
 
                         var a = new List<string>();
@@ -352,6 +495,19 @@ namespace BFCNews.Controllers
                 return Json(new { messager = "accessDenied" });
             }
 
+        }
+
+        //search function
+        [HttpPost]
+        public async Task<IActionResult> Search(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return Json(new {message="empty"}); // Trả về 404 Not Found khi không có text
+            }
+
+            var PostSearch = _context.Posts.Where(e => e.Title.Contains(text)).ToList();
+            return Json(new { posts = PostSearch });
         }
     }
 }

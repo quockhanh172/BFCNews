@@ -1,5 +1,6 @@
 ﻿using BFCNews.Data;
 using BinhdienNews.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
@@ -8,6 +9,7 @@ using System.Security.Claims;
 
 namespace BFCNews.Controllers
 {
+    [Authorize(policy: "AdminOrSuperAdmin")]
     public class RoleController : Controller
     {
         private RoleManager<IdentityRole> _roleManager;

@@ -6,6 +6,7 @@
     @inject UserManager<ApplicationUser> userManager
     @inject ApplicationDbContext context
     var departmentAside = context.Departments.ToList();
+    var category = context.Categories.FirstOrDefault();
     var currentDepartment = ViewBag.CurrentDepartment;
     var activeLink = ViewBag.Activelink;
 }
@@ -106,6 +107,12 @@
                                     <a href="@Url.Action("Posts", "Management", new { department = "All" })" class="nav-link @(currentDepartment == "All" ? "active" : "")">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả post</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Posts", "Management", new { department = category.Name })" class="nav-link @(currentDepartment == category.Name ? "active" : "")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@category.Name</p>
                                     </a>
                                 </li>
                                 @if (departmentAside != null)

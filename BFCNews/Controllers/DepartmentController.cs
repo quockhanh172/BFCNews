@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BFCNews.Controllers
 {
-    [Authorize(Policy = "VipManager")]
+    [Authorize(Policy = "AdminOrSuperAdmin")]
     public class DepartmentController : Controller
 
     {

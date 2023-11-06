@@ -1,4 +1,5 @@
 ﻿using BinhdienNews.Models;
+using Newtonsoft.Json;
 
 namespace BFCNews.Models
 {

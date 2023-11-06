@@ -1,8 +1,8 @@
 ﻿var rowDelete;
 var rowEdit;
 $(document).ready(function () {
-    $(".alert").css('display', 'none');
-    $("#modal-Add-Department").on("click","#btnAdd",()=>{
+    $("#modal-Add-Department").on("click", "#btnAdd", () => {
+        alertHide();
         var name = $("#Department").val().toString();
         if (name != null) {
             $.ajax({
@@ -20,7 +20,6 @@ $(document).ready(function () {
                         $("#msgalert").text("Tên phòng ban đã tồn tại");
                         $(".alert").css("background", "#FF0000");
                         $(".alert").css('display', 'block');
-                        autoHide();
                     }
                 }
 
@@ -54,8 +53,8 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(".alert").css('display', 'none');
     $("#modal-Edit-Department").on('click', '#btn-Edit-Department', () => {
+        alertHide();
         var id = rowEdit.find("td:eq(0)").text();
         var formData = new FormData($("#form-Edit-Department")[0]);
         console.log(id);

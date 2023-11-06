@@ -1,0 +1,110 @@
+﻿@using BinhdienNews.Models;
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var deparments = ViewBag.Department;
+    var claimOfUser = ViewBag.ClaimOfUser;
+    @model ApplicationUser
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4" style="text-align: left;">
+                    <img id="avatar" src="../../Uploads/@Model.Avatar" class="card-img-top img-thumbnail" alt="Ảnh người dùng" style="max-height: 300px; max-width: 100%;">
+                </div>
+                <form id="formEditUser" action="post">
+                    <div class="col-mt-8">
+                        <dl class="dl-horizontal" id="dataEdit" data-itemid="@Model.Id">
+                            <dt>Tên người dùng:</dt>
+                            <dd><input type="text" value="@Model.UserName" disabled class="form-control" /></dd>
+                            <dt>Password:</dt>
+                            <dd><input type="password" name="EditPassword" class="form-control" /></dd>
+                            <dt>Email:</dt>
+                            <dd><input type="email" value="@Model.Email" name="EditEmail" class="form-control" /></dd>
+                            <dt>Họ Tên:</dt>
+                            <dd><input type="text" value="@Model.FullName" name="EditFullName" class="form-control" /></dd>
+                            @if (Model.DepartmentUsers.Count != 0)
+                            {
+                                if (claimOfUser != null)
+                                {
+                                    <dt>Cấp độ cũ:</dt>
+                                    <dd><input type="text" value="@claimOfUser" class="form-control" disabled /></dd>
+                                }       
+                                <dt>
+                                    <label for="userClaim">Cấp độ mới</label>
+                                </dt>
+                                <dd><select id="userClaimEdit" name="userClaimEdit" class="custom-select">
+                                        <option value="none"></option>
+                                        <option value="Level1">Level1</option>
+                                        <option value="Level2">Level2</option>
+                                        <option value="Level3">Level3</option>
+                                        <option value="Level4">Level4</option>
+                                    </select>
+                                </dd>
+                                <dt>Chức vụ cũ</dt>
+                                <dd><input type="text" value="@Model.DepartmentUsers.First().Position" class="form-control" disabled /></dd>
+                                <dt><label for="EditPosition">Chức vụ mới</label></dt>
+                                <dd>
+                                    <select id="EditPosition" name="EditPosition" class="custom-select">
+                                        <option value="none"></option>
+                                        <option value="VipManager">Tổng giám đốc</option>
+                                        <option value="SuperManager">Phó Tổng Giám Đốc</option>
+                                        <option value="Manager">Trưởng/Phó Phòng</option>
+                                        <option value="Employee">Nhân viên</option>
+                                     </select>
+                                </dd>
+                                <dt>Phòng ban:</dt>
+                                <dd>
+                                    <select class="js-example-basic-multiple" name="EditDeparment" multiple="multiple" style="position: absolute; top: 0px; left: 0px; width: 500px;">
+                                        @foreach (var item in deparments)
+                                        {
+                                            @foreach (var item2 in Model.DepartmentUsers)
+                                            {
+                                                if (item.Name == item2.Department.Name)
+                                                {
+                                                    <option value="@item.Id" selected>@item.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }  
+                                        }
+                                    </select>
+                                </dd>
+                                <dd style="text-align:right;">
+                                    <button type="button" id="adminEditUser">
+                                        <i class="fa fa-save fa-2x" aria-hidden="true"></i>
+                                    </button>
+                                </dd>                
+                            }
+                            <!-- Các thông tin khác của người dùng -->
+                        </dl>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModalEdit" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Xác nhận hành động</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn sửa thông tin người dùng?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary" id="confirmBtnEdit">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>

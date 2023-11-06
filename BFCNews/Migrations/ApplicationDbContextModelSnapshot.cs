@@ -38,7 +38,7 @@ namespace BFCNews.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BFCNews.Models.Comment", b =>

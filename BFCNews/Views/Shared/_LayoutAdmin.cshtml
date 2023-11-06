@@ -18,6 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../../dist/css/alt/Alert.css">
+    <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="~/dist/css/main.css">
     <script src="~/plugins/ckeditor5/build/ckeditor.js"></script>
 </head>
@@ -101,11 +102,32 @@
 
     <script src="../../dist/js/adminlte.min.js"></script>
     <script src="../../dist/js/mainDepartment.js"></script>
+    <script>
+        reload1s = () => {
+            setTimeout(function () {
+                location.reload();
+            }, 500);
+        }
+
+        alertAutoHide = () => {
+            setTimeout(function () {
+                $(".alert").css('display', 'none');
+            }, 1000);
+        }
+
+        alertHide = () => {
+            $(".alert").hide();
+        }
+    </script> 
     <script src="../../dist/js/ajax/CRUDajaxDepartment.js"></script>
     <script src="../../dist/js/ajax/CRUDajaxRole.js"></script>
     <script src="../../dist/js/ajax/CRUDajaxRegister.js"></script>
     <script src="../../dist/js/ajax/ajaxChangePassword.js"></script>
     <script src="../../dist/js/ajax/CRUDajaxPost.js"></script>
+    <script src="~/dist/js/moment.js"></script>
+
+    <!-- Select2 -->
+    <script src="../../plugins/select2/js/select2.full.min.js"></script>
 
     <!-- DataTables  & Plugins -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
@@ -143,22 +165,21 @@
               "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#tbAccount_wrapper .col-md-6:eq(0)');
           });
+        $(function () {
+            $("#tbPost").DataTable({
+                "responsive": true, 
+                "lengthChange": false, 
+                "autoWidth": false, 
+                "paging": false, 
+                "info": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#tbPost_wrapper .col-md-6:eq(0)');
+        });
 
-            $('.selectpicker').selectpicker();
-        reload1s = () => {
-            setTimeout(function () {
-                location.reload();
-            }, 500);
-        }
-        alertHide = () => {
-            $(".alert").css('display', 'none');
-        }
-        alertAutoHide = () => {
-            setTimeout(function () {
-                $(".alert").css('display', 'none');
-            }, 1000);  
-        }
-
+        $('.js-example-basic-multiple').select2();
+        $('#Department-select').select2();
+        $('.selectpicker').selectpicker();
+        
     </script>
 </body>
 </html>

@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.QuickInfo;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 using NuGet.Versioning;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.WebSockets;
 using System.Security.Claims;
 using System.Xml.Linq;
 
@@ -40,6 +43,7 @@ namespace BFCNews.Controllers
             return View();
         }
         [AllowAnonymous]
+        //login page
         public IActionResult Login()
         {
             return View();
@@ -95,7 +99,9 @@ namespace BFCNews.Controllers
             return View(model);
         }
 
+        //quan ly tai khoan
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Register(string activelink)
         {
             ViewBag.Activelink = activelink;
@@ -105,12 +111,14 @@ namespace BFCNews.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Add(string userName, string Email,string role, IFormFile avatar, string fullName, string userClaim, string Position, List<int> Department)
         {
             if (userName != null)
             {
                 var userPost = await _userManager.FindByNameAsync(userName);
-                if (userPost == null)
+                var userEmail = await _userManager.FindByEmailAsync(Email);
+                if (userPost == null && userEmail == null)
                 {
                     ApplicationUser user = new ApplicationUser();
                     user.FullName = fullName;
@@ -251,7 +259,7 @@ namespace BFCNews.Controllers
             string name = HttpContext.User.Identity.Name;
             string currentAccess= (await _userManager.FindByIdAsync(Id)).UserName;
 
-            if(roleAdmin || roleSuperAdmin || name == currentAccess)
+            if(roleSuperAdmin || name == currentAccess || roleAdmin)
             {
                 var user = await _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du => du.Department).FirstOrDefaultAsync(u => u.Id == Id);
                 ViewData["userDetail"] = user;
@@ -263,6 +271,8 @@ namespace BFCNews.Controllers
             return View();
         }
 
+
+        //forgot pass
         public IActionResult ForgotPassword()
         {
             return View();
@@ -299,6 +309,7 @@ namespace BFCNews.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         public IActionResult ResetPassword(string code,string Email)
         {
@@ -345,37 +356,167 @@ namespace BFCNews.Controllers
         //Change Password
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (_signInManager.IsSignedIn(User))
             {
-                var user = await _userManager.FindByIdAsync(model.UserId);
-                if (user == null)
+                if (ModelState.IsValid)
                 {
-                    return Json(new { success = false, errors = new List<string> { "Không tìm thấy tên người dùng." } });
-                }
-                var currenPasswordCheck =  _userManager.CheckPasswordAsync( user, model.CurrentPassword);
-                if (await currenPasswordCheck !=true)
-                {
-                    return Json(new { success = false, errors = new List<string> { "Mật khẩu cũ không chính xác." } });
-                }
-                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (changePasswordResult.Succeeded)
-                {
-                    return Json(new { success = true, message = "Đổi mật khẩu thành công" });
+                    var user = await _userManager.FindByIdAsync(model.UserId);
+                    if (user == null)
+                    {
+                        return Json(new { success = false, errors = new List<string> { "Không tìm thấy tên người dùng." } });
+                    }
+                    if (user.Id != _userManager.GetUserId(User))
+                    {
+                        // Người dùng tìm bởi ID không phải là người dùng đã đăng nhập
+                        return RedirectToAction("AccessDenied", "Error");
+                    }
+                    var currenPasswordCheck = _userManager.CheckPasswordAsync(user, model.CurrentPassword);
+                    if (await currenPasswordCheck != true)
+                    {
+                        return Json(new { success = false, errors = new List<string> { "Mật khẩu cũ không chính xác." } });
+                    }
+                    var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if (changePasswordResult.Succeeded)
+                    {
+                        return Json(new { success = true, message = "Đổi mật khẩu thành công" });
+                    }
+                    else
+                    {
+                        // Lấy danh sách lỗi từ changePasswordResult.Errors và trả về dưới dạng JSON
+                        var errors = changePasswordResult.Errors.Select(e => e.Description).ToList();
+                        return Json(new { success = false, errors = errors });
+                    }
                 }
                 else
                 {
-                    // Lấy danh sách lỗi từ changePasswordResult.Errors và trả về dưới dạng JSON
-                    var errors = changePasswordResult.Errors.Select(e => e.Description).ToList();
+                    var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                     return Json(new { success = false, errors = errors });
                 }
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                return Json(new { success = false, errors = errors });
+               return RedirectToAction("AccessDenied", "Error");
             }
+            
         }
 
+        [HttpGet]
+        [Authorize(Roles ="SuperAdmin")]
+        public async Task<IActionResult> EditUser(string Id)
+        {
+            if (Id != null)
+            {
+                var user = await _context.Users.Include(u => u.DepartmentUsers).ThenInclude(du => du.Department).FirstOrDefaultAsync(u => u.Id == Id);
+                var claimOfUser = await _userManager.GetClaimsAsync(user);
+                ViewBag.ClaimOfUser = claimOfUser[0].Value;
+                ViewBag.Department =  _context.Departments.ToList();
+                if(user != null)
+                {
+                    return View(user);
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> AdminEditUser(string Id, string EditPassword, string EditEmail, string EditFullName, string EditPosition, List<int> EditDeparment, String userClaimEdit)
+        {
+            var EditId = Id;
+            var NewPassword = EditPassword;
+            var NewEmail = EditEmail;
+            var NewDeparment = EditDeparment;
+            var NewPosition = EditPosition;
+            var NewUserClaim= userClaimEdit;
+            var NewFullName = EditFullName;
+            if (Id != null)
+            {
+                var User = await _userManager.FindByIdAsync(Id);
+                if (User != null)
+                {
+                    if(NewEmail != null && NewEmail!=User.Email)
+                    {
+                        var UserEmail = await _userManager.FindByEmailAsync(NewEmail);
+                        if(UserEmail != null)
+                        {
+                            User.Email = NewEmail;
+                        }
+                    }
+                    if(NewFullName != null && NewFullName != User.FullName)
+                    {
+                        User.FullName = NewFullName;
+                    }
+                    if (NewDeparment != null && NewPosition!="none")
+                    {
+                        var oldDepartmentUsers = await _context.DepartmentUsers
+                               .Where(du => du.User.Id == User.Id)
+                               .ToListAsync();
+
+                        _context.DepartmentUsers.RemoveRange(oldDepartmentUsers);
+
+                        foreach (var departmentId in NewDeparment)
+                        {
+                            var currentDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
+                            if (currentDepartment != null)
+                            {
+                                var departmentUser = new DepartmentUser
+                                {
+                                    Position = NewPosition,
+                                    Department = currentDepartment,
+                                    User = User,
+                                    Status = true
+                                };
+                                User.DepartmentUsers.Add(departmentUser);
+                            }
+                        }
+                    }
+                    if (NewUserClaim != null)
+                    {
+                        var existingClaim = await _userManager.GetClaimsAsync(User);
+                        if (existingClaim != null) {
+                            if (existingClaim.FirstOrDefault().Value != NewUserClaim)
+                            {
+                                var NewClaim = new Claim("Permission", NewUserClaim);
+                                var resultRemoveClaim =  await _userManager.RemoveClaimAsync(User, existingClaim[0]);
+                                if(resultRemoveClaim.Succeeded)
+                                {
+                                   var result2 = await _userManager.AddClaimAsync(User, NewClaim);
+                                }
+
+                            }
+                        }
+                    }
+                    if (NewPassword == null)
+                    {
+                        var resultUpdate = await _userManager.UpdateAsync(User);
+                        if (resultUpdate.Succeeded)
+                        {
+                            return Json(new { messager = "success" });
+                        }
+                        else
+                        {
+                            return Json(new { Messager = "failed" });
+                        }
+                    }
+                    var Token = await _userManager.GeneratePasswordResetTokenAsync(User);
+                    var result = await _userManager.ResetPasswordAsync(User, Token, NewPassword);
+                    var result3 = await _userManager.UpdateAsync(User);
+                    if (result3.Succeeded)
+                    {
+                        return Json(new { messager = "success" });
+                    }
+                    else
+                    {
+                        return Json(new { Messager = "failed" });
+                    }
+                }
+                else
+                {
+                    return Json(new { messager = "failed" });
+                }
+            }  
+            
+            return Json(new {messager="success"});
+        }
         //valid password
         private bool IsPasswordValid(string password)
         {

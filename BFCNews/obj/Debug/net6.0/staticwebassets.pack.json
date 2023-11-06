@@ -1,8 +1,24 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\8T 2022 - HPL TONG HOP - in.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\8T 2022 - HPL TONG HOP - in.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_1.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_1.xlsx"
+    },
+    {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_2.xlsx",
       "PackagePath": "staticwebassets\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_2.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_3.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\8T 2022 - HPL TONG HOP - in_3.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Báo cáo gửi đi tháng7.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Báo cáo gửi đi tháng7.xlsx"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Báo cáo theo tỉnh.xlsx",
@@ -57,12 +73,28 @@
       "PackagePath": "staticwebassets\\OfficeUploads\\SLTT_01.07.23-31.07.23_4.xlsx"
     },
     {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\SLTT_01.07.23-31.07.23_5.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\SLTT_01.07.23-31.07.23_5.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\SLTT_01.07.23-31.07.23_6.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\SLTT_01.07.23-31.07.23_6.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\SLTT_01.07.23-31.07.23_7.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\SLTT_01.07.23-31.07.23_7.xlsx"
+    },
+    {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh.xlsx",
       "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh.xlsx"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_1.xlsx",
       "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_1.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_10.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_10.xlsx"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_2.xlsx",
@@ -77,8 +109,20 @@
       "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_4.xlsx"
     },
     {
-      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_5.xlsx",
-      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_5.xlsx"
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_6.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_6.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_7.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_7.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_8.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_8.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\OfficeUploads\\Tên KH + mã tỉnh_9.xlsx",
+      "PackagePath": "staticwebassets\\OfficeUploads\\Tên KH + mã tỉnh_9.xlsx"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\Uploads\\04ce878b-9050-4cf8-8b7f-8f468d48d623.jpg",
@@ -619,6 +663,10 @@
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\dist\\js\\mainDepartment.js",
       "PackagePath": "staticwebassets\\dist\\js\\mainDepartment.js"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\dist\\js\\moment.js",
+      "PackagePath": "staticwebassets\\dist\\js\\moment.js"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\dist\\js\\pages\\dashboard.js",
@@ -16799,6 +16847,10 @@
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\plugins\\select2-bootstrap4-theme\\select2-bootstrap4.min.css",
       "PackagePath": "staticwebassets\\plugins\\select2-bootstrap4-theme\\select2-bootstrap4.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\plugins\\select2\\css\\_select2.scss",
+      "PackagePath": "staticwebassets\\plugins\\select2\\css\\_select2.scss"
     },
     {
       "Id": "C:\\Users\\Acer\\Desktop\\BFC\\BinhdienNews\\BFCNews\\BFCNews\\wwwroot\\plugins\\select2\\css\\select2.css",

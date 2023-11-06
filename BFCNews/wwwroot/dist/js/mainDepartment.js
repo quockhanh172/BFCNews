@@ -22,5 +22,34 @@ $(document).ready(function () {
             $("#title-web").text(upperCaseText);
             $("#title-web").css("font-weight", "bold");
         }
+
+    $("#search-btn").on("input", function () {
+        var text = $("#search-btn").val();
+        $(".dropdown-men").hide();
+        $(".dropdown-men").empty();
+        $.ajax({
+            url: '/Management/Search',
+            type: "POST",
+            data: { 'text': text },
+            success: function (response) {
+                if (Array.isArray(response.posts) && response.posts.length > 0) {
+                    $(".dropdown-men").show();
+                    response.posts.forEach(post => {
+                        var html = '<a class="dropdown-item" href="/management/detail?id=' + post.id + '">' + post.title + '</a>';
+                        $(".dropdown-men").append(html);
+                    });
+                }
+                else {
+                    $(".dropdown-men").hide();
+                    $(".dropdown-men").empty();
+                }
+            },
+            error:function(){
+                $("#msgalert").text("Website gặp lỗi xin quay lại sau");
+                $(".alert").css("background", "#dc3545");
+                $(".alert").css('display', 'block');
+            }
+        })
+    });
 });
 

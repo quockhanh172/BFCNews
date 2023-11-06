@@ -6,7 +6,8 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     @inject UserManager<ApplicationUser> userManager
     @inject ApplicationDbContext context;
-    var Posts = ViewBag.Posts;
+    List<Post> Posts = ViewBag.Posts;
+    var Total = ViewBag.Count;
 }
 <section class="content">
     <div class="container-fluid">
@@ -24,11 +25,12 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="tbPost" class="table table-bordered table-hover">
+                        <table id="tbPost" data-post-total="@Math.Ceiling((double)Total/8)" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Tiêu đề</th>
                                     <th>Họ Tên</th>
+                                    <th>Phòng Ban</th>
                                     <th>Ngày đăng</th>
                                     <th>Files</th>
                                     <th>Chức năng</th>
@@ -41,9 +43,16 @@
                                         foreach (var post in Posts)
                                         {
                                             <tr data-post-id="@post.Id">
-                                                <td style="text-align:left;width: 20%;"><a href="#" target="_blank">@post.Title</a></td>
-                                                <td style="width: 20%;">@post.User.FullName</td>
-                                                <td style="width: 20%;">@post.PublishedDate.ToString("dd/MM/yyyy")</td>
+                                                <td style="text-align:left;width: 30%;"><a href="#" target="_blank">@post.Title</a></td>
+                                                <td style="width: 15%;">@post.User.FullName</td>
+                                                @if(@post.Category!=null){
+                                                    <td style="width: 15%;">@post.Category.Name</td>
+                                                }
+                                                @if (post.Department != null)
+                                                {
+                                                    <td style="width: 15%;">@post.Department.Name</td>
+                                                }
+                                                <td style="width: 15%;">@post.PublishedDate.ToString("dd/MM/yyyy")</td>
                                                 <td style="text-align:left;width: 30%;">
                                                     @if (post.Files!=null)
                                                     {
@@ -60,7 +69,7 @@
                                                     }
                                                 </td>
 
-                                                <td style="width:20%">
+                                                <td style="width:10%">
                                                     <button class="btn btn-warning">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </button><button class="btn btn-danger">
@@ -76,28 +85,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
-                            <div class="dataTables_info" id="tbPostStatus" aria-live="polite">Showing 1 to 8 of 8 entries</div>
+                            
                         </div>
                         <div class="col-sm-12 col-md-7">
-                            <div class="dataTables_paginate paging_simple_numbers" id="tbAccount_paginate">
+                            <div id="tbAccount_pagination">
                                 <ul class="pagination" id="pagination-post">
-                                    <li class="paginate_button page-item previous disabled" id="tbAccount_previous">
-                                        <a href="#" aria-controls="tbAccount" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                                    </li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                    <!-- Thêm các nút trang từ 2 đến 10 -->
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="7" tabindex="0" class="page-link">7</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="8" tabindex="0" class="page-link">8</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="9" tabindex="0" class="page-link">9</a></li>
-                                    <li class="paginate_button page-item"><a href="#" aria-controls="tbAccount" data-dt-idx="10" tabindex="0" class="page-link">10</a></li>
-                                    <li class="paginate_button page-item next disabled" id="tbAccount_next">
-                                        <a href="#" aria-controls="tbAccount" data-dt-idx="11" tabindex="0" class="page-link">Next</a>
-                                    </li>
+                                    
                                 </ul>
 
                             </div>

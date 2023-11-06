@@ -72,7 +72,7 @@
                                                     }
                                                 }
                                                 <td>
-                                                    <button class="btn btn-warning" onclick="location.href='@(Url.Action("UserDetails", "User", new { @Id = user.Id }))'">
+                                                    <button class="btn btn-warning" onclick="location.href='@(Url.Action("EditUser", "User", new { @Id = user.Id }))'">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </button>
                                                     @if (user.LockoutEnabled == true)
@@ -156,15 +156,10 @@
                     </div>
                     <div class="form-group" style="display: none;" id="inputDepartment">
                         <label for="Department">Phòng Ban</label>
-                        <select id="Department" name="Department" multiple data-actions-box="true" class="selectpicker w-60 form-control">
-                            @{
-                                if (departments != null)
-                                {
-                                    foreach (var item in departments)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
+                        <select class="js-example-basic-multiple" id="Department-select" name="Department" multiple="multiple" style="position: absolute; top: 0px; left: 0px; height: 5px; width: 100%;">
+                            @foreach (var item in departments)
+                            {
+                                <option value="@item.Id">@item.Name</option>
                             }
                         </select>
                     </div>

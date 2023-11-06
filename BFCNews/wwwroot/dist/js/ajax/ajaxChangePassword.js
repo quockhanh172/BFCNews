@@ -17,7 +17,6 @@
                     $(".alert").css("background", "#28a745");
                     $(".alert").css('display', 'block');
                     $('#changePasswordModal').modal('hide')
-                    alertAutoHide();
                 } else {
                     var errorHtml = "<ul>";
                     for (var i = 0; i < response.errors.length; i++) {

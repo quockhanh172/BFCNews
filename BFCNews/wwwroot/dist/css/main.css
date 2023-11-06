@@ -31,6 +31,9 @@
     pointer-events: none; /* Ngăn truy cập vào nút "Chọn tệp" qua trường nhập tệp */
 }
 
+.ck-editor__editable_inline{
+    min-height:300px;
+}
 
 /* CSS cho nội dung modal */
 
@@ -53,3 +56,52 @@ body {
     -webkit-appearance: none;
 }
 
+.select2-selection__choice {
+    background-color: deepskyblue !important;
+    color: snow !important;
+}
+
+.select2-container .select2-selection__rendered {
+    height: 40px !important; /* Đặt chiều cao bạn muốn */
+}
+
+.select2-selection__choice__remove {
+    color: rgba(255, 255, 255, 0.7) !important;
+    float: right !important;
+    margin-left: 5px !important;
+    margin-right: -2px !important;
+}
+
+.select2-selection__choice__remove:hover {
+    color: #ffffff !important;
+}
+
+.dropdown-men {
+    overflow-y: auto; /* Sử dụng "auto" để hiển thị thanh cuộn ngang khi cần thiết */
+    height: auto;
+    max-height:300%;/* Điều chỉnh chiều rộng của phần tử để hiển thị nội dung và thanh cuộn khi cần thiết */
+    background-color:whitesmoke !important;
+    position: absolute;
+    width:74.6%;/* Đặt vị trí của dropdown-menu là absolute */
+    top: 80%;
+    left:0;
+    margin: 0px 13.1%;/* Đặt top là 100% để nó nằm phía dưới navbar */
+    z-index: 1;
+    display:none;
+    border-radius:1%;
+}
+    .dropdown-item:hover {
+        background-color: wheat !important;
+    }
+.dropdown-men::-webkit-scrollbar {
+    width: 4px; /* Đặt chiều rộng của thanh cuộn */
+}
+
+.dropdown-men::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu của thanh cuộn */
+    border-radius: 6px; /* Bo tròn góc của thanh cuộn */
+}
+
+    .dropdown-men::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* Màu khi di chuột qua thanh cuộn */
+    }
